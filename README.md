@@ -1,1 +1,1 @@
-This is the first version of the Origami Data Science Services webpages. It is made with Quarto.
+This is the first version of the Origami Data Science Services webpage. It is made with Quarto.

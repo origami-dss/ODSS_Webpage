@@ -1,0 +1,5 @@
+/.quarto/
+/_site/
+Blog/_site/
+Blog/_freeze/
+.DS_Store

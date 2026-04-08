@@ -1,0 +1,187 @@
+---
+title: "Knitting Paper"
+date: "2026-04-06"
+description: "An R Script for Generating Knitting Patterns"
+categories: [Viz, ggplot]
+---
+
+I’m a passionate knitter and have developed the script below as a tool to support the design of knitting patterns.
+It can be especially helpful for shaping tasks such as raglan constructions or calculating stitch decreases for necklines. The script is based on your personal knitting gauge—you can adjust the measured values by modifying the variables `no_of_stitches_per_10_cm` and `no_of_rows_per_10_cm`.
+At the end of the script, you’ll also find a few commented lines of code for printing the knitting paper at the correct scale. Please note that the resulting pdf might have very unusual sizes which requires additional adjustments.
+Feel free to use, adapt, and improve the R script to suit your own projects.
+
+
+```{r setup_and_load_packages, message = FALSE}
+# R packages needed
+packages <- c("ggplot2", "dplyr", "tibble", "grid", "gtable", "tidyr")
+
+# Install packages not yet installed
+installed_packages <- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
+
+# Loading packages
+invisible(lapply(packages, library, character.only = TRUE))
+
+```
+
+```{r knitting_paper, include = TRUE, echo = TRUE, fig.width = 12}
+#| fig-cap: Knitting paper based on gauge results
+
+# gauge result
+no_of_stitches_per_10_cm <- 26.5
+no_of_rows_per_10_cm <- 37
+
+# size of the output
+size_x_cm <- 25
+size_y_cm <- 17
+
+output_cm <- tibble(x = c(0, size_x_cm), y= c(0, size_y_cm))
+
+# size of a single stitch in x and y direction
+delta_x <- 10/no_of_stitches_per_10_cm
+delta_y <- 10/no_of_rows_per_10_cm
+
+total_no_of_stitches <- round(size_x_cm / delta_x)
+total_no_of_rows <- round(size_y_cm / delta_y)
+
+#  grid defined by stitch size
+lines_v <- tibble(x = (0 : total_no_of_stitches) * delta_x)
+lines_h <- tibble(y = (0 : total_no_of_rows) * delta_y)
+
+#  support grid for 10x10 cm
+lines_v_dm <- tibble(x = seq(0, size_x_cm, by = 10))
+lines_h_dm <- tibble(y = seq(0, size_y_cm, by = 10))
+
+#  support grid for 10x10 stitches and lables
+lines_h_10_stitches<- tibble(x = (1:floor(total_no_of_stitches / 10)) * 10 * delta_x)
+lines_v_10_stitches  <- tibble(y = (1:floor(total_no_of_rows / 10)) * 10 * delta_y)
+
+lines_v_10_stitches_labels <- lines_v_10_stitches %>%
+  mutate(
+    label = round(y/ delta_y) ) %>% 
+  crossing(tibble(x = seq(15, total_no_of_stitches, by = 30) * delta_x))
+
+
+# tibble for alternating rows 
+alternating_rows <- tibble(
+  ymin = (seq(0, total_no_of_rows, by = 2)) * delta_y,
+  ymax = ymin + delta_y,
+  xmin = 0,
+  xmax = delta_x * total_no_of_stitches)
+
+
+# knitting paper plot
+
+output_cm %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_blank() +
+  
+  geom_rect(
+    data = alternating_rows,
+    aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+    fill = "grey80",
+    color = NA,
+    inherit.aes = FALSE
+  ) +
+  
+  geom_vline(data = lines_v, aes(xintercept = x), color = "grey60", linewidth = 0.4) +
+  geom_hline(data = lines_h, aes(yintercept = y), color = "grey70", linewidth = 0.4) +
+  
+  geom_vline(data = lines_h_10_stitches, aes(xintercept = x), color = "grey60", linewidth = 0.6) +
+  geom_hline(data = lines_v_10_stitches, aes(yintercept = y), color = "grey60", linewidth = 0.6) +
+  
+  geom_vline(data = lines_v_dm, aes(xintercept = x), color = "darkred", linewidth = 0.7) +
+  geom_hline(data = lines_h_dm, aes(yintercept = y), color = "darkred", linewidth = 0.7) +
+
+ 
+  geom_text(
+    data = lines_v_10_stitches_labels,
+    aes(x = x,  y = y, label = label),
+    col = "grey40", 
+    inherit.aes = FALSE,
+    hjust = 0.5,
+    vjust = 0.5,
+    size = 3
+  ) +
+
+coord_fixed(xlim = c(0, size_x_cm), ylim = c(0, size_y_cm), ratio = 1) +
+  
+  
+ scale_x_continuous(
+  name = "Width (cm)",
+  breaks = lines_v_dm$x,
+  minor_breaks = seq(0, size_x_cm, by =1),
+  labels = round(lines_v_dm$x),
+  expand = expansion(add = 1*delta_x),
+  sec.axis = sec_axis(
+    ~ . / delta_x,
+    name = "Stitch Number",
+    breaks = seq(0, total_no_of_stitches, by = 10 * floor(floor(total_no_of_stitches/10)/4))
+  )
+) +
+
+scale_y_continuous(
+  name = "Length (cm)",
+  breaks = lines_h_dm$y,
+  labels = round(lines_h_dm$y),
+  expand = expansion(add = 1*delta_y),
+  sec.axis = sec_axis(
+    ~ . / delta_y,
+    name = "Row Number",
+    breaks = seq(0, total_no_of_rows, by = 10 * floor(floor(total_no_of_rows/10)/4))
+  ) 
+) +
+ 
+
+  labs( title  = "Knitting Paper", 
+  subtitle = paste(no_of_stitches_per_10_cm, "Stitches per 10 cm/", no_of_rows_per_10_cm, "Rows per 10 cm"), 
+  caption = "Enjoy Knitting!\n Origami Data Science Services\n") +
+    
+  theme(
+        title =element_text(size = 18, face = 'bold'),
+        
+        axis.title.x = element_text(color = "darkred", size = 15 ),
+        axis.title.y = element_text(color = "darkred", size = 15),   
+        axis.title.x.top = element_text(color = "grey40", size = 15),    
+        axis.title.y.right = element_text(color = "grey40", size = 15),  
+        
+        axis.text.x = element_text(color = "darkred", size = 12),
+        axis.text.y = element_text(color = "darkred", size = 12), 
+        axis.text.x.top = element_text(color = "grey40", size = 12), 
+        axis.text.y.right = element_text(color = "grey40", size = 12), 
+        
+        
+  ) -> plot_knitting_pattern
+
+# Plot of knitting paper
+
+plot_knitting_pattern
+
+#
+## Print knitting pattern to a pdf file
+## Sizes of the pdf file correspond to a 1:1 scale with regard to size_x_cm and size_y_cm
+#
+# g <- ggplotGrob(plot_knitting_pattern)
+## Identify panel 
+# panel_index <- g$layout$name == "panel"
+#
+## fix the size of the plot
+# g$widths[g$layout$l[panel_index]] <- unit(size_x_cm, "cm")
+# g$heights[g$layout$t[panel_index]] <- unit(size_y_cm, "cm")
+# total_width  <- sum(g$widths)
+# total_height <- sum(g$heights)
+#
+## pfd with knitting pattern
+## BE AWARE OF UNUSUAL PAPER SIZES!
+#
+## ggsave("knitting_paper_1_to_1.pdf",
+#       plot = g,
+#       width = convertWidth(total_width, "cm", valueOnly = TRUE),
+#       height = convertHeight(total_height, "cm", valueOnly = TRUE),
+#       units = "cm",
+#       device = "pdf")
+
+```
+

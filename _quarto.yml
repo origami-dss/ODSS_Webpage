@@ -1,0 +1,36 @@
+project:
+  type: website
+
+website:
+  title: "AW_ODSS"
+
+  navbar:
+     background: primary
+     search: true
+     collape: true
+     right:
+       - text: "Home"
+         href: index.qmd
+       - text: "Services"
+         href: Services.qmd
+       - text: "Blog"
+         href: Blog/index.qmd
+  page-footer:
+    left: "Made with {{< iconify simple-icons quarto >}} Quarto and {{< iconify simple-icons r >}}"
+    right:
+      - text: "About"
+        href: About.qmd
+      - text: "Privacy Policy"
+        href: privacy_policy.qmd
+
+format:
+  html:
+    fontsize: 20px
+    theme:
+      - lux
+      - styles.scss
+    toc: false
+
+execute:
+  freeze: false
+

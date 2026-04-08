@@ -1,0 +1,194 @@
+---
+title: "Datenschutzerklärung/ Privacy Policy"
+format:
+  html:
+    fontsize: 0.8em
+
+---
+
+## 1. Verantwortliche Person
+Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
+
+**Annette Witt**  
+Origami Data Science Services  
+E-Mail: [Ihre E-Mail-Adresse]  
+Website: [Ihre Website-URL]
+
+## 2. Allgemeines zur Datenverarbeitung
+
+#### Umfang der Verarbeitung personenbezogener Daten
+
+Ich verarbeite personenbezogene Daten der Nutzer dieser Website grundsätzlich nur, soweit dies zur Bereitstellung einer funktionsfähigen Website sowie der Inhalte und Leistungen erforderlich ist. Eine Verarbeitung personenbezogener Daten erfolgt nur nach Einwilligung des Nutzers oder wenn die Verarbeitung durch gesetzliche Vorschriften gestattet ist.
+
+#### Rechtsgrundlage
+
+Soweit ich für die Verarbeitung personenbezogener Daten eine Einwilligung der betroffenen Person einholt, dient Art. 6 Abs. 1 lit. a DSGVO als Rechtsgrundlage. Bei der Verarbeitung von Daten, die zur Erfüllung eines Vertrags erforderlich sind, dient Art. 6 Abs. 1 lit. b DSGVO als Rechtsgrundlage. Für die Verarbeitung zur Erfüllung einer rechtlichen Verpflichtung gilt Art. 6 Abs. 1 lit. c DSGVO. Zur Wahrung berechtigter Interessen gilt Art. 6 Abs. 1 lit. f DSGVO.
+
+#### Datenlöschung und Speicherdauer
+
+Personenbezogene Daten werden gelöscht oder gesperrt, sobald der Zweck der Speicherung entfällt. Eine Speicherung kann darüber hinaus erfolgen, wenn dies durch europäische oder nationale Gesetzgeber in unionsrechtlichen Verordnungen, Gesetzen oder sonstigen Vorschriften vorgesehen wurde.
+
+## 3. Bereitstellung der Website und Erstellung von Logfiles
+
+#### Beschreibung und Umfang der Datenverarbeitung
+
+Bei jedem Aufruf der Website werden durch den Hosting-Anbieter automatisch Informationen erfasst. Diese werden in Logfiles gespeichert. Dabei werden folgende Daten erhoben:
+
+- IP-Adresse des anfragenden Rechners (anonymisiert)
+- Datum und Uhrzeit des Zugriffs
+- Name und URL der abgerufenen Datei
+- Website, von der aus der Zugriff erfolgt (Referrer-URL)
+- Verwendeter Browser und ggf. das Betriebssystem
+
+#### Zweck der Datenverarbeitung
+
+Die vorübergehende Speicherung der IP-Adresse ist notwendig, um eine Auslieferung der Website an den Rechner des Nutzers zu ermöglichen. Die Speicherung in Logfiles erfolgt zur Sicherstellung der Funktionsfähigkeit der Website und zur Optimierung der Website.
+
+#### Rechtsgrundlage
+
+Rechtsgrundlage für die vorübergehende Speicherung der Daten ist Art. 6 Abs. 1 lit. f DSGVO.
+
+## 4. Hosting
+
+Diese Website wird bei **GitHub Pages** gehostet. Anbieter ist die GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Details entnehmen Sie der Datenschutzerklärung von GitHub: [https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
+
+Die Nutzung von GitHub Pages erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Es besteht ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung der Website.
+
+## 5. Kontaktaufnahme
+
+#### Beschreibung und Umfang der Datenverarbeitung
+
+Bei der Kontaktaufnahme per E-Mail werden die übermittelten Daten (E-Mail-Adresse, Name, Inhalt der Nachricht) gespeichert, um die Anfrage zu bearbeiten.
+
+#### Zweck der Datenverarbeitung
+
+Die Verarbeitung der personenbezogenen Daten dient ausschließlich zur Bearbeitung der Kontaktanfrage.
+
+#### Rechtsgrundlage
+
+Rechtsgrundlage für die Verarbeitung der Daten ist Art. 6 Abs. 1 lit. f DSGVO. Zielt die Kontaktanfrage auf den Abschluss eines Vertrages ab, so ist Art. 6 Abs. 1 lit. b DSGVO zusätzliche Rechtsgrundlage.
+
+## 6. Externe Links und eingebettete Inhalte
+
+Diese Website enthält Links zu externen Websites (z. B. GitHub, LinkedIn, Google Scholar). Für die Inhalte dieser externen Seiten ist ausschließlich der jeweilige Anbieter verantwortlich. Beim Klick auf externe Links können Daten an den jeweiligen Anbieter übertragen werden. Bitte beachten Sie die Datenschutzerklärungen der jeweiligen Anbieter.
+
+## 7. Keine Cookies und keine Tracking-Tools
+
+Diese Website verwendet keine Cookies und setzt keine Tracking- oder Analysetools ein (z. B. kein Google Analytics). Es findet keine Nachverfolgung des Nutzerverhaltens statt.
+
+## 8. Rechte der betroffenen Personen
+
+Sie haben gegenüber mir folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:
+
+- **Recht auf Auskunft** (Art. 15 DSGVO)
+- **Recht auf Berichtigung** (Art. 16 DSGVO)
+- **Recht auf Löschung** (Art. 17 DSGVO)
+- **Recht auf Einschränkung der Verarbeitung** (Art. 18 DSGVO)
+- **Recht auf Datenübertragbarkeit** (Art. 20 DSGVO)
+- **Widerspruchsrecht** (Art. 21 DSGVO)
+
+Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: [Ihre E-Mail-Adresse]
+
+#### Beschwerderecht bei der Aufsichtsbehörde
+
+Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren. Die zuständige Aufsichtsbehörde richtet sich nach dem Bundesland Ihres Wohnsitzes.
+
+## 9. Aktualität und Änderung dieser Datenschutzerklärung
+
+Diese Datenschutzerklärung ist aktuell gültig und hat den Stand **Februar 2026**. Durch die Weiterentwicklung der Website oder aufgrund geänderter gesetzlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung anzupassen.
+
+---
+
+# Privacy Policy (English)
+
+## 1. Controller
+
+The controller responsible for data processing on this website within the meaning of the General Data Protection Regulation (GDPR) is:
+
+**Annette Witt**  
+Origami Data Science Services  
+Email: annette.witt@posteo.de  
+Website: [Your website URL]
+
+## 2. General Information on Data Processing
+
+#### Scope of processing personal data
+
+I process personal data of users of this website only to the extent necessary to provide a functioning website and its content and services. Personal data is only processed with the user's consent or where permitted by law.
+
+#### Legal basis
+
+Where I obtain the consent of the data subject for processing personal data, Art. 6(1)(a) GDPR serves as the legal basis. For processing necessary for the performance of a contract, Art. 6(1)(b) GDPR applies. For processing to comply with a legal obligation, Art. 6(1)(c) GDPR applies. For processing to protect legitimate interests, Art. 6(1)(f) GDPR applies.
+
+#### Deletion and storage period
+
+Personal data is deleted or blocked as soon as the purpose of storage no longer applies. Storage may continue if required by European or national legislation.
+
+## 3. Provision of the Website and Log Files
+
+#### Description and scope of data processing
+
+Each time the website is accessed, the hosting provider automatically collects information stored in log files. The following data is collected:
+
+- IP address of the requesting device (anonymised)
+- Date and time of access
+- Name and URL of the retrieved file
+- Website from which access was made (referrer URL)
+- Browser used and, where applicable, the operating system
+
+#### Purpose of data processing
+
+Temporary storage of the IP address is necessary to deliver the website to the user's device. Log files are stored to ensure the website's functionality and optimisation.
+
+#### Legal basis
+
+The legal basis for temporary storage is Art. 6(1)(f) GDPR.
+
+## 4. Hosting
+
+This website is hosted on **GitHub Pages**. The provider is GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. For details, please refer to GitHub's privacy statement: [https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
+
+The use of GitHub Pages is based on Art. 6(1)(f) GDPR. There is a legitimate interest in the reliable presentation of the website.
+
+## 5. Contact
+
+#### Description and scope of data processing
+
+When contacting me by email, the transmitted data (email address, name, message content) is stored in order to process the request.
+
+#### Purpose of data processing
+
+The processing of personal data serves solely to handle the contact request.
+
+#### Legal basis
+
+The legal basis is Art. 6(1)(f) GDPR. Where the contact request aims at concluding a contract, Art. 6(1)(b) GDPR additionally applies.
+
+## 6. External Links and Embedded Content
+
+This website contains links to external websites (e.g. GitHub, LinkedIn, Google Scholar). The respective providers are solely responsible for the content of these external sites. When clicking on external links, data may be transferred to the respective provider. Please refer to the privacy policies of the respective providers.
+
+## 7. No Cookies and No Tracking Tools
+
+This website does not use cookies and does not deploy any tracking or analytics tools (e.g. no Google Analytics). No tracking of user behaviour takes place.
+
+## 8. Rights of Data Subjects
+
+You have the following rights with regard to your personal data:
+
+- **Right of access** (Art. 15 GDPR)
+- **Right to rectification** (Art. 16 GDPR)
+- **Right to erasure** (Art. 17 GDPR)
+- **Right to restriction of processing** (Art. 18 GDPR)
+- **Right to data portability** (Art. 20 GDPR)
+- **Right to object** (Art. 21 GDPR)
+
+To exercise your rights, please contact: [Your email address]
+
+#### Right to lodge a complaint
+
+You have the right to lodge a complaint with a data protection supervisory authority regarding the processing of your personal data. The competent authority depends on your place of residence in Germany.
+
+## 9. Currency and Changes to this Privacy Policy
+
+This privacy policy is currently valid as of **February 2026**. It may be necessary to update this privacy policy due to the further development of the website or changes in legal requirements.

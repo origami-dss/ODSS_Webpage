@@ -1,0 +1,105 @@
+---
+title: "Fundamental Frequency of the Sunspot Data"
+date: "2026-03-25"
+description: How regular is the 11 year sunspot cycle?
+categories: [ggplot, FibFreq]
+---
+
+How to compute the frequency of an oscillatory time series? And what can you do if this oscillation is irregular?
+In our recent paper (<https://doi.org/10.3389/frsip.2025.1707422>), we proposed and discussed four time domain techniques  and three frequency domain techniques for doing that.
+They are provided in the accompanying R package ***FibFreq***. Below I will briefly explain two of these techniques.
+Their functionality is illustrated for the solar cycle time series .
+We begin with loading the sunspot data set and smoothing it:
+
+
+```{r setup_and_load_data, message = FALSE}
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(FibFreq)){
+   library(devtools)
+    install_github("origami-dss/FibFreq")}
+library(tidyverse)
+library(FibFreq)
+
+# We load the monthly  sunspot data set
+sunspot_data <- as.vector(sunspot.month)
+
+# which has a sampling interval of 
+delta_t <- 1./12
+
+# As the time series is very noisy, we apply a 3-year moving average filter
+filtered_sunspot_data <- stats::filter(sunspot_data, rep(1./36,36))
+
+# This leads to leading and ending values NA. 
+# As the FibFreq library does not handle them, they have to be removed.
+smoothed_sunspot_data <- filtered_sunspot_data[!is.na(filtered_sunspot_data)]
+
+```
+
+We begin with identifying the local maxima of this time series and consider the average temporal distance between successive maxima as a the fundamental period.
+
+```{r plot_sunspot_data_and_tehir_maxs, include = TRUE, echo = TRUE, fig.width = 6, fig.height = 4}
+
+# The parameters of the maximum identification function have to be adjusted 
+freq_M2M <- freq_max2max(smoothed_sunspot_data, delta_t = delta_t, span = 31)
+
+time = (1:length(smoothed_sunspot_data)) * delta_t
+timings_maxima_Max2Max = tibble(time = freq_M2M$maxima_sampled * delta_t, 
+                                sunspots = smoothed_sunspot_data[freq_M2M$maxima_sampled])
+tibble(time = time, sunspots = smoothed_sunspot_data) %>%
+  ggplot(aes(x = time, y = sunspots)) +
+  geom_line(col = "darkgreen") +
+  geom_point(data = timings_maxima_Max2Max, aes(x = time, y = sunspots), col = "darkred") + 
+  labs( x = "Time [month]", y = " ", 
+        title = "Smoothed Sunspot Data with Identified Maxima", 
+        caption = paste("Dr. Annette Witt\n Origami Data Science Services\n", format(Sys.Date(), format = "%d. %B %Y"))) +
+  theme_minimal() +
+  theme(strip.text.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(), 
+        plot.margin = margin(t = 5,  # Top margin
+                             r = 5,  # Right margin
+                             b = 5,  # Bottom margin
+                             l = 20))
+
+```
+
+The fundamental period based on max-to-max distances corresponds to  `1./freq_M2M$freq_max2max = `r format(1./freq_M2M$freq_max2max, digits = 3) ``
+years which is very close to the expected 11-year cycle. 
+The coefficient of variation of the intervals between successive maxima is
+ `freq_M2M$c_v = `r format(freq_M2M$c_v, digits = 2) ``, or, equivalently  the standard deviation  of the max-to-max distances is ``r format(freq_M2M$c_v/freq_M2M$freq_max2max, digits = 2) `` years which indicates  a moderate level of irregularity of the oscillation.
+
+The fundamental frequency can also be estimated by spectral techniques:
+
+```{r spectral_techniques, fig.width = 6, fig.height = 4}
+freq_MaxP <- freq_argmax_periodogram(smoothed_sunspot_data,
+                                     delta_t = delta_t,
+                                     f_min = 0.001,
+                                     f_max = 0.3)
+freq_Lorentz <- freq_Lorentz_fit(smoothed_sunspot_data,
+                                 delta_t = delta_t,
+                                 f_min = 0.001,
+                                 f_max = 0.3)
+
+tibble_Lorentz_plot <- as_tibble(freq_Lorentz$Lorentz_model)
+
+
+tibble_Lorentz_plot %>%
+  ggplot(aes(x = Frequency)) +
+  geom_linerange( aes(ymin = 0, ymax = Fourier_Amps), col = "darkgreen", linewidth = 1.5) +
+  geom_line( aes(y = modelled_Fourier_Amps), col = "darkorange", linewidth = 1, linetype = "dashed") +
+  labs(x = "Frequency [1/yr]", 
+       title = "Smoothed Sunspot Data: Fourier Amplitudes and Lorentz Model", 
+       caption = paste("Dr. Annette Witt\n Origami Data Science Services\n", format(Sys.Date(), format = "%d. %B %Y"))) +
+  theme_minimal() +
+  theme(
+    strip.text.y = element_blank(),
+    axis.title.y=element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+```
+The largest Fourier amplitude is found at $f=`r format(freq_MaxP$freq_argmax_periodogram, digits = 2) `$  which corresponds to a period of $P = `r format(1./freq_MaxP$freq_argmax_periodogram, digits = 3) `$ yr. If a Lorentz model is fitted to the Fourier amplitudes, it is characterized by a Lorentz frequency of $f_{\text{Lorentz}} = `r format(freq_Lorentz$freq_Lorentz, digits = 2) `$ yr^-1^  ($P_{\text{Lorentz}} = 10.7$ yr) along with a Lorentz scale parameter of 
+$\sigma_{\text{Lorentz}} =`r format(freq_Lorentz$scale_Lorentz, digits = 2) `$  yr^-1^
+indicating that the underlying oscillation is moderately irregular. 
+
+The ***FibFreq*** package contains more estimators for the fundamental frequency. Feel free to explore them ;-)

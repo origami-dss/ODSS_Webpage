@@ -1,0 +1,52 @@
+/*-- scss:defaults --*/
+
+/* COLORS */
+$theme-lightgrey: #C4C5C7;
+$theme-beige: #f5efd540;
+$theme-black: #020101;
+$theme-midgrey: #757577;
+$theme-darkmidgrey: #646868;
+$theme-yellow: #EBC846;
+$theme-purple: rgb(210, 47, 60);
+
+$body-bg: $theme-beige;
+$body-color: $theme-black;
+
+/*-- scss:rules --*/
+
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: none !important;
+}
+
+h2 { border-top: none !important; }
+
+/*-- blocksatz --*/
+/*-- p { text-align: justify;} --*/
+
+strong, b {
+  font-weight: 700 !important;
+}
+
+h1 {
+  color: $theme-darkmidgrey;
+}
+h2, h4, h5, h6, h7 {
+  color: $theme-black;
+}
+h3 { 
+  color: $theme-purple;
+}
+
+.nav-footer, .nav-footer a {
+  font-size: 1rem;
+  color: $theme-darkmidgrey;
+}
+
+.navbar * {
+  color: $theme-lightgrey;
+  transition-duration: 0.5s;
+  &:hover {
+    color: $theme-purple;
+    transition-duration: 0.5s;
+  }
+}

@@ -1,0 +1,42 @@
+---
+title: "About/ Impressum"
+format:
+  html:
+    fontsize: 0.8em
+---
+
+
+<p>
+Dr. Annette Witt<br>
+Uferstr. 7<br>
+14542 Werder (Havel)<br>
+Germany
+</p>
+
+
+#### Kontakt/ Contact
+{{< iconify lucide mail >}} Email: annette.witt@posteo.de
+
+#### Umsatzsteuer-ID
+Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
+57 944 310 860
+
+#### Angaben zum Cyber­versicherer
+
+```{=html}
+<p>
+HISCOX SA<br>
+Bernhard-Wicki-Str. 3<br>
+80636 München<br>
+Deutschland
+</p>
+```
+
+#### Urheberin der verwendeten Bilder
+© Annette Witt
+
+#### Urheberin der Blogeinträge
+© Annette Witt
+
+#### Software used
+This webpage was made with {{< iconify simple-icons quarto >}} Quarto and {{< iconify simple-icons r >}}

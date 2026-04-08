@@ -1,0 +1,37 @@
+/*-- css:defaults --*/
+
+$theme-lightgrey: #C4C5C7;
+$theme-beige: #F5EFD5;
+$theme-black: #020101;
+$theme-midgrey: #757577;
+$theme-darkmidgrey: #646868;
+$theme-yellow: #EBC846;
+$theme-purple: #bf5b4f;
+
+/* COLORS */
+
+
+
+$body-bg: $theme-beige;
+$body-color: $theme-black;
+
+/*-- scss:rules --*/
+
+h1, h2 {
+  color: $theme-black;
+}
+
+.navbar *{
+    color: $theme-lightgrey;
+    transition-duration: 0.5s;
+}
+
+/* navbar text hover */
+.navbar span {
+  color: $theme-lightgrey;
+  transition-duration: 0.5s;
+  &:hover {
+    color: $theme-purple;
+    transition-duration: 0.5s;
+  }
+}

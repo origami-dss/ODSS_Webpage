@@ -1,0 +1,26 @@
+---
+title: "Services Offered"
+format:
+  html:
+    fontsize: 0.8em
+---
+
+Origami Data Science Services offers three types of data science services: consulting, programming and data analysis.
+
+### 1. Consulting
+
+Every effective summary of a data-driven process begins with the proper measurement and recording of data. Origami Data Science Services provides consulting by guiding clients through the full data pipeline — from data recording to preprocessing, data analytics, and statistical summarization. This includes developing tailored concepts for each stage, recommending appropriate statistical and analytical tools, and establishing methods to assess and quantify the reliability of results.
+
+### 2. Programming
+
+Origami Data Science Services offers statistical programming using {{< iconify simple-icons r >}} and its extensive ecosystem of libraries (such as those within the tidyverse), covering data wrangling, data visualization, and the exploration of hidden structures in data. Selected examples of smaller projects can be found on the blog, an example of an {{< iconify simple-icons r >}} package is the FibFreq project, and many publications are based on data analyses carried out with R text. (see [{{< iconify fa6-solid:link >}} Google Scholar](https://scholar.google.com/citations?hl=en&user=GrbsqM0AAAAJ&view_op=list_works&sortby=pubdate)).
+
+### 3. Data Analysis
+
+Origami Data Science Services offers comprehensive data analysis, including preprocessing, model fitting, and model validation. Results are delivered through clear and concise reports, featuring statistical summaries presented in text, tables, and visualizations.
+
+### 4. Experience
+
+Annette has a strong passion for real-world data, including observational and recorded datasets. She has extensive experience in the statistical evaluation of complex data, and in particular, in the analysis of univariate and multivariate time and event series. Her work is grounded in model-driven data analysis: she systematically compares models to data and contributes to the development of new statistical tools. Her analytical expertise spans a wide range of methods, including statistical techniques and information-theoretic concepts. These incorporate approaches in both, the time and spectral domain, measures for characterizing causal interactions, and methods for analyzing networked systems. She also places great emphasis on the clear and effective visual representation of data and analytical results.
+
+

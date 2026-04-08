@@ -1,0 +1,98 @@
+---
+title: "Event Series Analysis"
+date: "2026-03-06"
+description: "How to analyse and visualize rate changes in event series?"
+categories: [ggplot, analysis, event series]
+---
+
+Event series are time series that record the number of events within equally-sized time intervals. They serve as models for neuronal spike trains, hydrogeological extreme events such as earthquakes or floods, or the occurrence of ectopic heartbeats in an otherwise healthy heart rhythm. Event series can have constant or time-dependent event rates. How can these two cases be distinguished?
+
+Let's consider two examples and start with an event series with a constant rate. The data set has a large observational gap in the time interval (4000, 5500).
+
+```{r, message = FALSE}
+library(tidyverse)
+```
+
+```{r, fig.width = 6, fig.height = 4}
+#| fig-cap: Estimated time-dependent event rate (red dashed line) with confidence band (grey) and the estimated constant rate (blue line); rug plot of events shown at the bottom.
+
+set.seed(3)
+events <- rpois(10000, 0.05)
+event_series <- tibble(x = 1:length(events), y = events)
+is.na(event_series$y) <- c(4000:5500)
+cols <- c("Events" = "black", "Spline" = "red", "Constant" = "blue")
+events <- event_series |> filter(y > 0)
+ggplot() +
+     geom_rect(aes(xmin = 4000, xmax = 5500, ymin = -Inf, ymax = Inf), color = NA, fill = "olivedrab", alpha = 0.3) +
+     geom_rug(data = events, aes(x = x, col = "Events"), lwd = 0.05, show.legend = FALSE) +
+     geom_point(data = events[1,], aes(x = x, y = y, col = "Events"), shape = 124, size = 5) +
+     geom_smooth(data = event_series, aes(x = x, y = y, col = "Spline"), formula = "y ~ x", method = "loess", lty = "dashed",  na.rm = TRUE, alpha = 0.5, linewidth = 0.5) +
+     geom_smooth(data = event_series, method = "lm",  na.rm = TRUE, formula = "y ~ 1", aes(x = x, y = y, col = "Constant"), se = FALSE, linewidth = 0.5) +
+     annotate("text", label = "No Data", col = "white", x = 4500, y = 0.05, size = 8, angle = 90) +
+     coord_cartesian(ylim = c(0.02, 0.08)) +
+     guides(col = guide_legend(override.aes = list(
+       shape    = c(NA, NA, 124),
+       linetype = c("solid", "dashed", "blank"),
+       linewidth = c(0.5, 0.5, 0),
+       size     = c(NA, NA, 4) 
+     ))) +
+     scale_color_manual(values = cols, breaks = c("Constant", "Spline", "Events")) +
+     theme_minimal() +
+     labs(
+       x = "Time",
+       y = "Event Rate",
+       title = "Event Rates for a Poisson Process\n",
+       col = "Data / Models",
+       caption = paste("Dr. Annette Witt\n Origami Data Science Services\n", format(Sys.Date(), format = "%d. %B %Y"))
+     ) +
+     theme(
+       panel.grid.minor.x = element_blank(),
+       panel.grid.major.x = element_blank(), 
+       plot.margin = margin(t = 10, r = 5, b = 2,  l = 5)
+     )
+
+```
+
+The plot shows a rug plot of the event series at the bottom, and the estimated time-dependent rate (red dashed line) with its 95% confidence band (grey) and the estimated constant rate (blue line). The estimated rate is more uncertain at the beginning and the end of the event series and in the vicinity of the observational gap, i.e., the confidence band widens.
+
+For event series with time-dependent (here periodically changing) rates, however, the following features are likely to be found:
+
+```{r}
+#| fig-cap: The graph represents the same analysis as above, here for an event series with a non-constant event rate.
+
+set.seed(1)
+len <- 10000
+rate <- tibble(rate = 0.05 + 0.025 * sin(0.0005 * 2 * pi * (1:len)))
+event_series <- rate |>
+  mutate(x = row_number(), y = map_dbl(rate, \(x) rpois(1, x)))
+events <- event_series |> filter(y > 0)
+
+ggplot() +
+     geom_rug(data = events, aes(x = x, col = "Events"), lwd = 0.05, show.legend = FALSE) +
+     geom_point(data = events[1,], aes(x = x, y = y, col = "Events"), shape = 124, size = 5) +
+     geom_smooth(data = event_series, aes(x = x, y = y, col = "Spline"), method = "loess", formula = "y ~ x", span = 0.1, lty = "dashed", alpha = 0.5, linewidth = 0.5) +
+     geom_smooth(data = event_series, method = "lm", formula = "y ~ 1", aes(x = x, y = y, col = "Constant"), se = FALSE, linewidth = 0.5) +
+     guides(col = guide_legend(override.aes = list(
+       shape    = c(NA, NA, 124),
+       linetype = c("solid", "dashed", "blank"),
+       linewidth = c(0.5, 0.5, 0),
+       size     = c(NA, NA, 4)
+     ))) +
+     coord_cartesian(ylim = c(-0.05, 0.14), expand = FALSE) +
+     scale_color_manual(values = cols, breaks = c("Constant", "Spline", "Events")) +
+     theme_minimal() +
+     labs(
+       x = "Time",
+       y = "Event Rate",
+       title = "Event Rates for a Poisson Process with Time-Dependent Rate",
+       col = "Data / Models",
+       caption = paste("Dr. Annette Witt\n Origami Data Science Services\n", format(Sys.Date(), format = "%d. %B %Y"))
+     ) +
+     theme(
+       panel.grid.minor.x = element_blank(),
+       panel.grid.major.x = element_blank()
+     )
+
+```
+
+Here the constant rate (blue line) periodically lays outside the confidence band of the time-dependent rate (grey area).

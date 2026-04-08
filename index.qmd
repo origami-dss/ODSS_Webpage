@@ -1,0 +1,57 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+<!--# 
+ ---
+ title: "Origami Data Science Services"
+ --- | -->
+---
+title: "Annette Witt, PhD"
+subtitle: "Data Scientist | DataViz Expert | R Programmer"
+about:
+  image: Annette_Dec2025.png
+  image-alt: Photo of Dr. Annette Witt
+  image-shape: rounded
+  id: hero-heading
+  template: jolla
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:noreply@odss.eu  
+    - icon: github
+      text: GitHub
+      href: https://github.com/origami-dss
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/annette-witt-a67968245/
+    - text: Google Scholar
+      href: https://scholar.google.com/citations?hl=en&user=GrbsqM0AAAAJ&view_op=list_works&sortby=pubdate
+---
+
+
+
+::: {#hero-heading}
+
+
+
+## Expertise
+
+As a data scientist with a particular expertise in time and event series analysis, a passion for data visualisation and strong R programming experience, Annette is working as a freelance data science consultant and data analyst.
+
+## Education
+
+Diploma in Mathematics (Humboldt University of Berlin, Germany) \
+PhD in Theoretical Physics/ Nonlinear Dynamics (University of Potsdam, Germany)
+
+## Experience
+
+Annette’s work focuses on the application of model-driven data analysis to uncover patterns in complex systems. Her work spans multiple disciplines, including cardiology, geoscience, and neuroscience. 
+
+Over the years, she has analyzed time and event series data from various fields: examining heart rhythms in both healthy individuals and patients with cardiac arrhythmias; investigating paleoclimate records; and exploring temporal dynamics in geohazards. In neuroscience, she has worked with brain signals to identify and characterize key patterns of neural activity. Her primary experience lies in detecting and characterizing underlying oscillations, correlations, and long-term trends within the observed systems.
+In addition, she refines statistical methods to improve data interpretation.
+
+Annette has a passion for data viz. Some examples of her charts can be found in the blog.
+:::
+

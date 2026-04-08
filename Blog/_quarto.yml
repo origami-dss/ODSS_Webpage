@@ -1,0 +1,22 @@
+project:
+  type: website
+
+website:
+  description: "A blog built with Quarto"
+  title: "Blog"
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/
+      - icon: twitter
+        href: https://twitter.com
+format:
+  html:
+    theme:
+      - lux
+      - brand
+    css: styles.css
+
+execute:
+  freeze: false
+

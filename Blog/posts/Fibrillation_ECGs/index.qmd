@@ -1,0 +1,66 @@
+---
+title: "ECGs of Fibrillating Hearts"
+date: "2026-03-22"
+description: "Slow versus fast and regular versus irregular fibrillations"
+categories: [Viz, ggplot, FibFreq]
+---
+
+You’re probably familiar with what an ECG looks like under normal (sinus) rhythm. Ventricular fibrillation, however, is a very different signal: highly irregular, nonstationary, and difficult to characterize. Clinically, it’s one of the most critical cardiac arrhythmias—fatal within minutes if untreated.
+
+In our recent paper (<https://doi.org/10.3389/frsip.2025.1707422>), we analyze ECG recordings from fibrillating murine hearts from a time series perspective. I have written the accompanying R package ***FibFreq*** with methods for estimating the fibrillation frequency and which includes a data set of 112 ECG recordings. Below, I visualize a small selection of these signals.
+
+Each time series is one second long, sampled at 1 kHz (1,000 data points). To reduce 50 Hz power line noise, we applied a fifth-order Butterworth low-pass filter with a 45 Hz cutoff.
+
+```{r, message = FALSE}
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(FibFreq)){
+   library(devtools)
+    install_github("origami-dss/FibFreq")}
+library(tidyverse)
+library(FibFreq)
+```
+
+```{r plot_ECGs, include = TRUE, echo = TRUE, fig.width = 6, fig.height = 4}
+#| fig-cap: ECGs signals of murine fibrillating hearts.
+ecgs_selected  <- c(1, 37, 112, 13)
+minitib <- function(no, i) {
+  tibble(no = rep(no, 1000), 
+         time = 1:1000, 
+         ecg = MiceFibECGs[,i], 
+         orig_no = rep(i, 1000)) }
+
+map2_dfr(1:length(ecgs_selected), ecgs_selected, minitib) -> data_fig_ecgs
+
+data_fig_ecgs_text <- data.frame(
+  no   = c(1,2,3,4),
+  label = paste("ECG No.",ecgs_selected))
+
+data_fig_ecgs_y_scales <- data.frame(
+  no   = c(1,1,2,2,3,3,4,4),
+  time = rep(0,8),
+  ecg = c(-0.1, 0.2, -0.03, 0.03, -0.03, 0.03, -0.01, 0.02))
+
+data_fig_ecgs %>%
+  ggplot(aes(x=time, y=ecg)) +
+  geom_line(col="darkblue", linewidth = 0.5) +
+  geom_blank(data = data_fig_ecgs_y_scales) +
+  facet_grid(rows = vars(no), scales = "free") +
+  geom_text(data = data_fig_ecgs_text, 
+            mapping = aes(x = 0, y = Inf, label = label, hjust = 0, vjust = 1 ), 
+            fontface = "bold", size = 3) +
+  labs( x = "Time [ms]", title = "Examples of Murine ECGs (Source: R Package FibFreq) \n",  
+        caption = paste("Dr. Annette Witt\n Origami Data Science Services\n", format(Sys.Date(), format = "%d. %B %Y"))) +
+  scale_y_continuous(NULL, expand = expansion(mult = c(0, 0)), breaks = NULL) +
+  scale_x_continuous(limits= c(-01, 1020),  expand =  c(0, 0), breaks = (0:5)*200) +
+  theme_minimal() +
+  theme(strip.text.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin = margin(t = 5,  # Top margin
+                             r = 5,  # Right margin
+                             b = 5,  # Bottom margin
+                             l = 20)
+  )
+```
+
+All four time series exhibit oscillatory behavior, with an apparent increase in irregularity from top to bottom. Intuitively, one would expect a more reliable estimate of the fundamental frequency for the topmost ECG, and a less certain estimate for the ECG shown in the bottom panel. The ***FibFreq*** package provides four time-domain and three frequency-domain techniques for estimating the fundamental frequency of a time series. In addition, it outputs quantities that characterize the irregularity of the oscillations .

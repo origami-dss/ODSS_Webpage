@@ -19,7 +19,7 @@ about:
   links:
     - icon: envelope
       text: Email
-      href: mailto:noreply@odss.eu  
+      href: mailto annette.witt@posteo.de  
     - icon: github
       text: GitHub
       href: https://github.com/origami-dss

@@ -39,4 +39,4 @@ Deutschland
 © Annette Witt
 
 #### Software used
-This webpage was made with {{< iconify simple-icons quarto >}} Quarto and {{< iconify simple-icons r >}}
+This webpage was made with {{< iconify simple-icons quarto >}} Quarto and included {{< iconify simple-icons r >}} code chunks.

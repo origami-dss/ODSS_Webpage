@@ -3,3 +3,5 @@
 Blog/_site/
 Blog/_freeze/
 .DS_Store
+
+**/*.quarto_ipynb

@@ -10,9 +10,12 @@ format:
 Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
 
 **Annette Witt**  
-Origami Data Science Services  
-E-Mail: [Ihre E-Mail-Adresse]  
-Website: [Ihre Website-URL]
+Origami Data Science Services 
+Uferstr. 7
+14542 Werder (Havel)
+Deutschland 
+E-Mail: annette.witt@posteo.de  
+
 
 ## 2. Allgemeines zur Datenverarbeitung
 
@@ -50,9 +53,14 @@ Rechtsgrundlage für die vorübergehende Speicherung der Daten ist Art. 6 Abs. 1
 
 ## 4. Hosting
 
-Diese Website wird bei **GitHub Pages** gehostet. Anbieter ist die GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Details entnehmen Sie der Datenschutzerklärung von GitHub: [https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
+Diese Website wird über **Posit Connect Cloud** gehostet. Anbieter ist Posit Software, PBC, 250 Northern Ave, Boston, MA 02210, USA. Details entnehmen Sie der Datenschutzerklärung von Posit: [https://posit.co/about/privacy-policy/](https://posit.co/about/privacy-policy/).
 
-Die Nutzung von GitHub Pages erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Es besteht ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung der Website.
+Die Nutzung von Posit Connect Cloud erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Es besteht ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung der Website. Bei der Übertragung von Daten in die USA kommen die EU-Standardvertragsklauseln zur Anwendung, um ein angemessenes Datenschutzniveau zu gewährleisten.
+
+Posit Connect Cloud erfasst möglicherweise folgende Daten:
+- Server-Logs (IP-Adressen, Browserinformationen, Zugriffszeiten)
+- Authentifizierungsdaten (falls erforderlich)
+- Performance- und Monitoring-Daten zur Sicherstellung der Dienstverfügbarkeit
 
 ## 5. Kontaktaufnahme
 
@@ -87,7 +95,7 @@ Sie haben gegenüber mir folgende Rechte hinsichtlich der Sie betreffenden perso
 - **Recht auf Datenübertragbarkeit** (Art. 20 DSGVO)
 - **Widerspruchsrecht** (Art. 21 DSGVO)
 
-Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: [Ihre E-Mail-Adresse]
+Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: annette.witt@posteo.de
 
 #### Beschwerderecht bei der Aufsichtsbehörde
 
@@ -95,7 +103,7 @@ Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Vera
 
 ## 9. Aktualität und Änderung dieser Datenschutzerklärung
 
-Diese Datenschutzerklärung ist aktuell gültig und hat den Stand **Februar 2026**. Durch die Weiterentwicklung der Website oder aufgrund geänderter gesetzlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung anzupassen.
+Diese Datenschutzerklärung ist aktuell gültig und hat den Stand **April 2026**. Durch die Weiterentwicklung der Website oder aufgrund geänderter gesetzlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung anzupassen.
 
 ---
 
@@ -108,7 +116,7 @@ The controller responsible for data processing on this website within the meanin
 **Annette Witt**  
 Origami Data Science Services  
 Email: annette.witt@posteo.de  
-Website: [Your website URL]
+
 
 ## 2. General Information on Data Processing
 
@@ -146,9 +154,14 @@ The legal basis for temporary storage is Art. 6(1)(f) GDPR.
 
 ## 4. Hosting
 
-This website is hosted on **GitHub Pages**. The provider is GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. For details, please refer to GitHub's privacy statement: [https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement).
+This website is hosted on **Posit Connect Cloud**. The provider is Posit Software, PBC, 250 Northern Ave, Boston, MA 02210, USA. For details, please refer to Posit's privacy policy: [https://posit.co/about/privacy-policy/](https://posit.co/about/privacy-policy/).
 
-The use of GitHub Pages is based on Art. 6(1)(f) GDPR. There is a legitimate interest in the reliable presentation of the website.
+The use of Posit Connect Cloud is based on Art. 6(1)(f) GDPR. There is a legitimate interest in the reliable presentation of the website. For data transfers to the USA, EU Standard Contractual Clauses are applied to ensure an adequate level of data protection.
+
+Posit Connect Cloud may collect the following data:
+- Server logs (IP addresses, browser information, access times)
+- Authentication data (if required)
+- Performance and monitoring data to ensure service availability
 
 ## 5. Contact
 
@@ -183,12 +196,12 @@ You have the following rights with regard to your personal data:
 - **Right to data portability** (Art. 20 GDPR)
 - **Right to object** (Art. 21 GDPR)
 
-To exercise your rights, please contact: [Your email address]
+To exercise your rights, please contact: annette.witt@posteo.de
 
 #### Right to lodge a complaint
 
-You have the right to lodge a complaint with a data protection supervisory authority regarding the processing of your personal data. The competent authority depends on your place of residence in Germany.
+You have the right to lodge a complaint with a data protection supervisory authority regarding the processing of your personal data. The competent authority depends on your place of residence.
 
 ## 9. Currency and Changes to this Privacy Policy
 
-This privacy policy is currently valid as of **February 2026**. It may be necessary to update this privacy policy due to the further development of the website or changes in legal requirements.
+This privacy policy is currently valid as of **April 2026**. It may be necessary to update this privacy policy due to the further development of the website or changes in legal requirements.

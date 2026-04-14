@@ -1,8 +1,8 @@
 ---
 title: "Annette's R Blog" 
 description: 
-  I am a passionate R user. In this blog, I highlight my preferred features of R through practical examples.
-  You’ll find concise data analysis and visualization projects, each accompanied by fully reproducible R code.
+  I am an enthusiastic R user. In this blog, I highlight my preferred features of R through practical examples.
+  You will find concise data analysis and visualization projects, each accompanied by fully reproducible R code.
 listing:
   contents: posts
   type: grid 

@@ -4,12 +4,11 @@ project:
 website:
   description: "A blog built with Quarto"
   title: "Blog"
-  navbar:
-    right:
-      - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+
+# Temporarily commented out iconify filter due to rendering issues
+# filters:
+#   - iconify
+
 format:
   html:
     theme:

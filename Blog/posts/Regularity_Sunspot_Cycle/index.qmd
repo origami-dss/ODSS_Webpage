@@ -3,6 +3,9 @@ title: "Fundamental Frequency of the Sunspot Data"
 date: "2026-03-25"
 description: How regular is the 11 year sunspot cycle?
 categories: [ggplot, FibFreq]
+format: 
+  html: 
+    extends: _formats.yml
 ---
 
 How to compute the frequency of an oscillatory time series? And what can you do if this oscillation is irregular?

@@ -4,22 +4,26 @@ format: html
   
 ---
 
-Origami Data Science Services offers three types of data science services: consulting, programming and data analysis.
+Origami Data Science Services offers three types of data science services: consulting, programming, and data analysis.
 
 #### 1. Consulting
 
-Every effective summary of a data-driven process begins with the proper measurement and recording of data. Origami Data Science Services provides consulting by guiding clients through the full data pipeline — from data recording to preprocessing, data analytics, and statistical summarization. This includes developing tailored concepts for each stage, recommending appropriate statistical and analytical tools, and establishing methods to assess and quantify the reliability of results.
+Every effective summary of a data-driven process begins with the proper measurement and recording of data. Origami Data Science Services provides consulting by guiding clients through the full data pipeline: from data recording to preprocessing, data analytics, and statistical summarization. This includes developing tailored concepts for each stage, recommending appropriate statistical and analytical tools, and establishing methods to assess and quantify the reliability of results. Available for short-term projects or long-term collaborations.
+
+
 
 #### 2. Programming
 
-Origami Data Science Services offers statistical programming using {{< iconify simple-icons r >}} and its extensive ecosystem of libraries (such as those within the tidyverse), covering data wrangling, data visualization, and the exploration of hidden structures in data. Selected examples of smaller projects can be found on the blog, an example of an {{< iconify simple-icons r >}} package is the FibFreq project (see [{{< iconify simple-icons:github >}} GitHub](https://github.com/origami-dss)), and manyof my  publications are based on data analyses carried out with R (see [{{< iconify fa6-solid:link >}} Google Scholar](https://scholar.google.com/citations?hl=en&user=GrbsqM0AAAAJ&view_op=list_works&sortby=pubdate)).
+Origami Data Science Services offers statistical programming using {{< iconify simple-icons r >}} and its extensive ecosystem of libraries. The code covers data reading and cleaning, data wrangling, data visualization, the exploration of hidden structures in data and the presentation of the analysis results. Selected examples of smaller projects can be found on the blog, an example of an {{< iconify simple-icons r >}} package is the FibFreq project (see [{{< iconify simple-icons:github >}} GitHub](https://github.com/origami-dss)) and many of my  publications are based on data analyses carried out with {{< iconify simple-icons r >}} (see [{{<iconify fa6-solid:link >}} Google Scholar](https://scholar.google.com/citations?hl=en&user=GrbsqM0AAAAJ&view_op=list_works&sortby=pubdate)).
 
 #### 3. Data Analysis
 
-Origami Data Science Services offers comprehensive data analysis, including preprocessing, model fitting, and model validation. Results are delivered through clear and concise reports, featuring statistical summaries presented in text, tables, and visualizations.
+Origami Data Science Services offers comprehensive analysis of your data. This includes preprocessing, model fitting, and model validation. Results are delivered through clear and concise reports, featuring statistical summaries presented in text, tables, and visualizations.
 
+#### 4. Pricing
+Competitive rates available upon request. Pricing depends on project scope, duration, and complexity. Non-profit discounts available.
 
-::: {style="border: 1px solid rgb(210, 47, 60); padding: 10px; border-radius: 1px; font-size: 18px; font-weight: 500; background-color: rgba(210, 47, 60, 0.3);"}
-If you are interested in booking me, please contact me per email for an video appointment.
-{{< iconify lucide mail >}} Email: annette.witt@posteo.de
+::: {style="border: 1.5px solid rgb(210, 47, 60); padding: 20px 15px 5px 15px ; border-radius: 1px; font-size: 1.08em; font-weight: 500; background-color: rgba(210, 47, 60, 0.3);"}
+For inquiries about services or collaboration opportunities, please contact me.
+{{< iconify lucide mail >}} Email: [annette.witt@posteo.de](mailto:annette.witt@posteo.de)
 :::

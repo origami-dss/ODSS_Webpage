@@ -19,7 +19,7 @@ about:
   links:
     - icon: envelope
       text: Email
-      href: mailto annette.witt@posteo.de  
+      href: mailto:annette.witt@posteo.de  
     - icon: github
       text: GitHub
       href: https://github.com/origami-dss
@@ -38,7 +38,7 @@ about:
 
 ## Expertise
 
-As a data scientist with a particular expertise in time and event series analysis, a passion for data visualisation and strong R programming experience, Annette is working as a freelance data science consultant and data analyst.
+Annette is a data scientist with a particular expertise in time and event series analysis, a passion for data visualisation and strong R programming experience. She is a freelance data science consultant and data analyst.
 
 ## Education
 
@@ -47,11 +47,12 @@ PhD in Theoretical Physics/ Nonlinear Dynamics (University of Potsdam, Germany)
 
 ## Experience
 
-Annette’s work focuses on the application of model-driven data analysis to uncover patterns in complex systems. Her work spans multiple disciplines, including cardiology, geoscience, and neuroscience. 
+Annette’s work focuses on the application of model-driven data analysis to uncover patterns in recordings of complex systems.
+Over the years, she has analyzed time and event series data from various fields: examining heart rhythms in both healthy individuals and patients with cardiac arrhythmias, investigating paleoclimate records, and exploring temporal dynamics in geohazards. 
+In neuroscience, she has worked with brain signals to identify and characterize key patterns of neural activity. 
 
-Over the years, she has analyzed time and event series data from various fields: examining heart rhythms in both healthy individuals and patients with cardiac arrhythmias; investigating paleoclimate records; and exploring temporal dynamics in geohazards. In neuroscience, she has worked with brain signals to identify and characterize key patterns of neural activity. Her primary experience lies in detecting and characterizing underlying oscillations, correlations, and long-term trends within the observed systems.
+Her primary experience lies in detecting and characterizing underlying oscillations, correlations, and long-term trends within the observed systems.
 In addition, she refines statistical methods to improve data interpretation.
 
-Annette has a passion for data viz. Some examples of her charts can be found in the blog.
+Annette has successfully visualized data and the results of her analyses.  Some examples of her charts can be found in the blog.
 :::
-

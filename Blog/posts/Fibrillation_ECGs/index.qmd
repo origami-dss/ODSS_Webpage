@@ -3,15 +3,17 @@ title: "ECGs of Fibrillating Hearts"
 date: "2026-03-22"
 description: "Slow versus fast and regular versus irregular fibrillations"
 categories: [Viz, ggplot, FibFreq]
+format: 
+  html: 
+    extends: _formats.yml
 ---
 
-You’re probably familiar with what an ECG looks like under normal (sinus) rhythm. Ventricular fibrillation, however, is a very different signal: highly irregular, nonstationary, and difficult to characterize. Clinically, it’s one of the most critical cardiac arrhythmias—fatal within minutes if untreated.
+You are probably familiar with what an ECG looks like under a normal sinus rhythm. Ventricular fibrillation, however, is a very different signal: highly irregular, nonstationary, and difficult to characterize. Clinically, it is one of the most critical cardiac arrhythmias as it is fatal within minutes if untreated.
 
-In our recent paper (<https://doi.org/10.3389/frsip.2025.1707422>), we analyze ECG recordings from fibrillating murine hearts from a time series perspective. I have written the accompanying R package ***FibFreq*** with methods for estimating the fibrillation frequency and which includes a data set of 112 ECG recordings. Below, I visualize a small selection of these signals.
 
-Each time series is one second long, sampled at 1 kHz (1,000 data points). To reduce 50 Hz power line noise, we applied a fifth-order Butterworth low-pass filter with a 45 Hz cutoff.
+Recently, I have published together with former colleagues a [paper](https://doi.org/10.3389/frsip.2025.1707422), where we have analyzed ECG recordings from fibrillating murine hearts from a time series perspective. (see [{{< iconify simple-icons:github >}} GitHub](https://github.com/origami-dss)) I have written the accompanying [{{< iconify simple-icons r >}} package ***FibFreq***](https://github.com/origami-dss/FibFreq) with methods for estimating the fibrillation frequency. This package does also include a data set of 112 ECG recordings. Below, I visualize a four of these signals. Each time series is one second long and contains 1,000 data points.
 
-```{r, message = FALSE}
+```{r setup_and_load_data, message = FALSE}
 if(!require(tidyverse)) install.packages("tidyverse")
 if(!require(FibFreq)){
    library(devtools)
@@ -20,7 +22,7 @@ library(tidyverse)
 library(FibFreq)
 ```
 
-```{r plot_ECGs, include = TRUE, echo = TRUE, fig.width = 6, fig.height = 4}
+```{r plot_ECGs, include = TRUE, echo = TRUE, fig.width = 8, fig.height = 6}
 #| fig-cap: ECGs signals of murine fibrillating hearts.
 ecgs_selected  <- c(1, 37, 112, 13)
 minitib <- function(no, i) {
@@ -63,4 +65,4 @@ data_fig_ecgs %>%
   )
 ```
 
-All four time series exhibit oscillatory behavior, with an apparent increase in irregularity from top to bottom. Intuitively, one would expect a more reliable estimate of the fundamental frequency for the topmost ECG, and a less certain estimate for the ECG shown in the bottom panel. The ***FibFreq*** package provides four time-domain and three frequency-domain techniques for estimating the fundamental frequency of a time series. In addition, it outputs quantities that characterize the irregularity of the oscillations .
+All four time series exhibit oscillatory behavior, with an apparent increase in irregularity from top to bottom. The freqeuncy is bertween 20 and 30 Hz. Intuitively, one expects a more reliable estimate of the fundamental frequency for the topmost ECG, and a less certain estimate for the ECG shown in the bottom panel. The ***FibFreq*** package provides time-domain and frequency-domain techniques for estimating the fundamental frequency of a time series. In addition, it outputs quantities that characterize the irregularity of the oscillations. Indeed, the frequency analysis results in more uncertain freqeuncy estimates for the time series at the bottom of the chart compared to those on the top. More datils can be found in the [paper](https://doi.org/10.3389/frsip.2025.1707422) and in the description of the {{< iconify simple-icons r >}}-package.

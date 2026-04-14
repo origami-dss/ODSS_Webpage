@@ -3,6 +3,9 @@ title: "Comparison of Statistical Techniques"
 date: "2026-03-28"
 description: "Which estimator is the most appropriate?"
 categories: [Viz, ggplot, FibFreq]
+format: 
+  html: 
+    extends: _formats.yml
 ---
 In data science we are often confronted with different estimators for the same quantity. For instance, there are various methodes for calculating the fundamental freqeuncy of an oscillatory time series or for the strength of long-range persistence of a noisy time series. It is common practise to benchmark the different estimators for a specific suite of test data. How to compare the results? In this post, I will present three vizualizations of the statistical summary.
 
@@ -10,6 +13,8 @@ As test data I will use realizations of a model for stochastic oscillations. Eac
 sampled at 1 kHz (1,000 data points). 
 
 ```{r setup_and_load_packages, message = FALSE}
+# Loading packages
+
 if(!require(tidyverse)) install.packages("tidyverse")
 if(!require(FibFreq)){
    library(devtools)
@@ -93,7 +98,7 @@ freq_res_for_boxplot  %>%
     axis.text.x = element_text(size = 6),
     axis.title.x = element_text(size = 8),
     legend.position = "none",
-    panel.grid.minor.y = element_blank(), #
+    panel.grid.minor.y = element_blank(), 
     panel.grid.major.y = element_blank()
   )
 

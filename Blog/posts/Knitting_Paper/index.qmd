@@ -3,11 +3,14 @@ title: "Knitting Paper"
 date: "2026-04-06"
 description: "An R Script for Generating Knitting Patterns"
 categories: [Viz, ggplot]
+format: 
+  html: 
+    extends: _formats.yml
 ---
 
-I’m a passionate knitter and have developed the script below as a tool to support the design of knitting patterns.
-It can be especially helpful for shaping tasks such as raglan constructions or calculating stitch decreases for necklines. The script is based on your personal knitting gauge—you can adjust the measured values by modifying the variables `no_of_stitches_per_10_cm` and `no_of_rows_per_10_cm`.
-At the end of the script, you’ll also find a few commented lines of code for printing the knitting paper at the correct scale. Please note that the resulting pdf might have very unusual sizes which requires additional adjustments.
+As a hobby knitter I have developed the script below as a tool to support the design of knitting patterns.
+It can be especially helpful for shaping tasks such as raglan constructions or calculating stitch decreases for necklines. The script is based on your personal knitting gauge, you can adjust the measured values by modifying the variables `no_of_stitches_per_10_cm` and `no_of_rows_per_10_cm`.
+At the end of the script, you will also find a few commented lines of code for printing the knitting paper at the correct scale. Please note that the resulting pdf might have very unusual sizes which requires additional adjustments.
 Feel free to use, adapt, and improve the R script to suit your own projects.
 
 

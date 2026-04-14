@@ -3,24 +3,29 @@ title: "Event Series Analysis"
 date: "2026-03-06"
 description: "How to analyse and visualize rate changes in event series?"
 categories: [ggplot, analysis, event series]
+format: 
+  html: 
+    extends: _formats.yml
 ---
 
 Event series are time series that record the number of events within equally-sized time intervals. They serve as models for neuronal spike trains, hydrogeological extreme events such as earthquakes or floods, or the occurrence of ectopic heartbeats in an otherwise healthy heart rhythm. Event series can have constant or time-dependent event rates. How can these two cases be distinguished?
 
-Let's consider two examples and start with an event series with a constant rate. The data set has a large observational gap in the time interval (4000, 5500).
+Let's consider two examples and start with an event series with a constant rate. The data set has a large observational gap in the time interval from 4000 to 5500.
 
-```{r, message = FALSE}
+```{r install_tidyverse, message = FALSE}
 library(tidyverse)
+# define the color scheme
+cols <- c("Events" = "black", "Spline" = "red", "Constant" = "blue")
 ```
 
-```{r, fig.width = 6, fig.height = 4}
+```{r synthetic_event_series_constant_rate, fig.width = 6, fig.height = 4}
 #| fig-cap: Estimated time-dependent event rate (red dashed line) with confidence band (grey) and the estimated constant rate (blue line); rug plot of events shown at the bottom.
 
 set.seed(3)
 events <- rpois(10000, 0.05)
 event_series <- tibble(x = 1:length(events), y = events)
 is.na(event_series$y) <- c(4000:5500)
-cols <- c("Events" = "black", "Spline" = "red", "Constant" = "blue")
+
 events <- event_series |> filter(y > 0)
 ggplot() +
      geom_rect(aes(xmin = 4000, xmax = 5500, ymin = -Inf, ymax = Inf), color = NA, fill = "olivedrab", alpha = 0.3) +
@@ -57,8 +62,11 @@ The plot shows a rug plot of the event series at the bottom, and the estimated t
 
 For event series with time-dependent (here periodically changing) rates, however, the following features are likely to be found:
 
-```{r}
+```{r synthetic_event_series_oscillating_rate, fig.width = 6, fig.height = 4}
 #| fig-cap: The graph represents the same analysis as above, here for an event series with a non-constant event rate.
+
+# Define colors for consistency with first plot
+cols <- c("Events" = "black", "Spline" = "red", "Constant" = "blue")
 
 set.seed(1)
 len <- 10000

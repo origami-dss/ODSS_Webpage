@@ -9,7 +9,7 @@ format:
 #### 1. Verantwortliche Person
 Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
 
-**Annette Witt**  
+***Dr. Annette Witt***  
 Origami Data Science Services  
 Uferstr. 7  
 14542 Werder (Havel)  
@@ -114,12 +114,14 @@ Diese Datenschutzerklärung ist aktuell gültig und hat den Stand **April 2026**
 
 The controller responsible for data processing on this website within the meaning of the General Data Protection Regulation (GDPR) is:
 
-**Annette Witt**  
+
+***Dr. Annette Witt***  
 Origami Data Science Services  
 Uferstr. 7  
 14542 Werder (Havel)  
 Deutschland  
 Email: annette.witt@posteo.de  
+
  
 
 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "en_US",
-  "platform": "4.5.2",
+  "platform": "4.5.3",
   "metadata": {
     "appmode": "quarto-static",
     "primary_rmd": "index.qmd",
@@ -10,7 +10,7 @@
     "has_parameters": false
   },
   "quarto": {
-    "version": "1.9.36",
+    "version": "1.9.37",
     "engines": ["markdown", "knitr"]
   },
   "packages": {

@@ -2,7 +2,7 @@
 title: "Event Series Analysis"
 date: "2026-03-06"
 description: "How to analyse and visualize rate changes in event series?"
-categories: [ggplot, analysis, event series]
+categories: [ggplot, Analysis]
 ---
 
 Event series are time series that record the number of events within equally sized time intervals. They are commonly used to model phenomena such as neuronal spike trains, hydrogeological extremes (e.g. earthquakes or floods), or the occurrence of ectopic heartbeats in an otherwise regular cardiac rhythm. Event series may exhibit either constant or time-dependent event rates. A key question is how to distinguish between these two cases.

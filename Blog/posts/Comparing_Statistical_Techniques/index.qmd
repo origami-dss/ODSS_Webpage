@@ -2,8 +2,8 @@
 title: "Comparison of Statistical Techniques"
 date: "2026-03-28"
 description: "Which estimator is the most appropriate?"
-categories: [Viz, ggplot, FibFreq]
-image: "index_files/figure-html/plot_boxplots-1.png"
+categories: [ggplot, FibFreq, Analysis, DataViz]
+image: "index_files/figure-html/plot_boxplots_frequency_estimates-1.png"
 ---
 In data science we are often confronted with different estimators for the same quantity. For instance, there are various methodes for calculating the fundamental frequency of an oscillatory time series or for the strength of long-range persistence of a noisy time series. It is common practise to benchmark the different estimators for a specific suite of test data. How to compare the results? In this post, I will present different vizualizations of the statistical summary.
 
@@ -101,6 +101,7 @@ data_fig_ecgs %>%
   ) +
   theme_minimal() +
   theme(
+    text = element_text(size = 16),
     strip.text.y = element_blank(),
     panel.spacing.y = unit(1, "line"),
     panel.grid.major.y = element_blank(),
@@ -109,7 +110,7 @@ data_fig_ecgs %>%
   )
 ```
 
-n a second step, this function is used to generate 500 time series. The fundamental frequency is then computed for each series using five different estimators based on functions from the ***FibFreq*** package.
+In a second step, this function is used to generate 500 time series. The fundamental frequency is then computed for each series using five different estimators based on functions from the ***FibFreq*** package.
 
 ```{r create_data_set}
 N <- 500
@@ -157,7 +158,7 @@ freq_res_for_boxplot <- as_tibble(cbind(
 
 Finally, I visualize the results: each estimated frequency is represented as a gray dot, with the five estimators vertically aligned. Boxplots provide a clear graphical summary for each estimator.
 
-```{r plot_boxplots_freqeuncy_estimates}
+```{r plot_boxplots_frequency_estimates}
 #| fig-align: center
 #| fig-width: 8
 #| fig-height: 6
@@ -229,6 +230,7 @@ freq_res_for_boxplot %>%
   ) +
   theme_minimal() +
   theme(
+    text = element_text(size = 16),
     axis.title.y = element_blank(),
     axis.text.y = element_text(hjust = 0),
     axis.text.x = element_text(size = 6),

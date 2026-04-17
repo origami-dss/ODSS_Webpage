@@ -2,7 +2,7 @@
 title: "ECGs of Fibrillating Hearts"
 date: "2026-03-22"
 description: "Slow versus fast and regular versus irregular fibrillations"
-categories: [Viz, ggplot, FibFreq]
+categories: [ggplot, FibFreq, DataViz]
 ---
 
 You are probably familiar with what an ECG looks like under a normal sinus rhythm. Ventricular fibrillation, however, is a very different signal: highly irregular, nonstationary, and difficult to characterize. Clinically, it is one of the most critical cardiac arrhythmias as it is fatal within minutes if untreated.

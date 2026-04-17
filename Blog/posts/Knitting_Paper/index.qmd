@@ -2,7 +2,7 @@
 title: "Knitting Paper"
 date: "2026-04-06"
 description: "An R Script for Generating Knitting Patterns"
-categories: [Viz, ggplot]
+categories: [ggplot]
 format: 
   html: 
     extends: _formats.yml

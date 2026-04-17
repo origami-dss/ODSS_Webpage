@@ -1,8 +1,8 @@
 ---
-title: "Fundamental Frequency of the Sunspot Data"
+title: "On the Frequency of the Sunspot Data"
 date: "2026-03-25"
 description: How regular is the 11 year sunspot cycle?
-categories: [ggplot, FibFreq]
+categories: [ggplot, FibFreq, Analysis]
 ---
 
 How can we compute the frequency of an oscillatory time series, and what can we do when the oscillations are irregular? In our recent [paper](https://doi.org/10.3389/frsip.2025.1707422), we proposed and discussed four time-domain techniques and three frequency-domain techniques for addressing this problem. These methods are implemented in the accompanying ***FibFreq*** {{< iconify simple-icons r >}} package. Below, I briefly describe two of these approaches. Their use is illustrated with the sunspot cycle time series. We begin by loading and smoothing the sunspot dataset:

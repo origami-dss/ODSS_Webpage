@@ -3,7 +3,6 @@ title: "Datenschutzerklärung/ Privacy Policy"
 format:
   html:
     fontsize: 0.8em
-
 ---
 
 #### 1. Verantwortliche Person
@@ -15,8 +14,6 @@ Uferstr. 7
 14542 Werder (Havel)  
 Deutschland  
 E-Mail: annette.witt@posteo.de  
-
-
 
 #### 2. Allgemeines zur Datenverarbeitung
 

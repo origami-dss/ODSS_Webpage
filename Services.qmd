@@ -1,7 +1,6 @@
 ---
 title: "Services Offered"
-format: html
-  
+format: html  
 ---
 
 Origami Data Science Services offers three types of data science services: consulting, programming, and data analysis.
@@ -21,7 +20,7 @@ Origami Data Science Services offers statistical programming using {{< iconify s
 Origami Data Science Services offers comprehensive analysis of your data. This includes preprocessing, model fitting, and model validation. Results are delivered through clear and concise reports, featuring statistical summaries presented in text, tables, and visualizations.
 
 #### 4. Pricing
-Competitive rates available upon request. Pricing depends on project scope, duration, and complexity. Non-profit discounts available.
+Competitive rates available upon request. Pricing depends on project scope, duration, and complexity. Non-profit discounts are available.
 
 ::: {style="border: 1.5px solid rgb(210, 47, 60); padding: 20px 15px 5px 15px ; border-radius: 1px; font-size: 1.08em; font-weight: 500; background-color: rgba(210, 47, 60, 0.3);"}
 For inquiries about services or collaboration opportunities, please contact me.

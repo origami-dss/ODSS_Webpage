@@ -43,7 +43,7 @@ Annette is a data scientist with a particular expertise in time and event series
 ## Education
 
 Diploma in Mathematics (Humboldt University of Berlin, Germany) \
-PhD in Theoretical Physics/ Nonlinear Dynamics (University of Potsdam, Germany)
+PhD in Theoretical Physics (University of Potsdam, Germany)
 
 ## Experience
 

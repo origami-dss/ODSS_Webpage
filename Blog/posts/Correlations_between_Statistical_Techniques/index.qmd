@@ -17,7 +17,9 @@ packages <- c("tidyverse", "bp", "scico", "corrViz", "GGally")
 
 # Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
-if (any(installed_packages == FALSE)) install.packages(packages[!installed_packages])
+if (any(installed_packages == FALSE)) {
+  install.packages(packages[!installed_packages])
+}
 
 # Loading packages
 invisible(lapply(packages, library, character.only = TRUE))
@@ -29,12 +31,12 @@ First, the blood pressure data are loaded and preprocessed:
 ```{r load_and_preprocess_data}
 data(bp_ghana)
 
-bp_ghana %>% 
+bp_ghana %>%
   filter(!is.na(SBP) & !is.na(DBP)) %>% # remove all rows with NA value od the blood pressure
-  group_by(ID) %>% 
-  mutate(n= n()) %>% 
-  filter(n==3) %>%  # remove all patients with incomplete bp measurements
-  ungroup()   ->  bp_data  
+  group_by(ID) %>%
+  mutate(n = n()) %>%
+  filter(n == 3) %>% # remove all patients with incomplete bp measurements
+  ungroup() -> bp_data
 # show the head of the table
 head(bp_data)
 
@@ -47,68 +49,114 @@ In a first graphical presentation I  present  blood pressure data as boxplots in
 
 
 
-```{r plot_boxplots, include = TRUE, echo = TRUE, fig.width = 6, fig.height = 4}
-
+```{r plot_boxplots}
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 6
+#| fig-cap: Systolic and Diastolic blood pressure.
+#| 
 COLS = scico(6, palette = 'oleron')
 # prepare data table for boxplot
-bp_data  %>% 
+bp_data %>%
   select(ID, Time_Elapsed, SBP, DBP) %>%
-  mutate(time = case_when(Time_Elapsed == "Baseline" ~ 1,
-                         Time_Elapsed == "6Months" ~ 2, Time_Elapsed == "12Months" ~ 3)) %>%
+  mutate(
+    time = case_when(
+      Time_Elapsed == "Baseline" ~ 1,
+      Time_Elapsed == "6Months" ~ 2,
+      Time_Elapsed == "12Months" ~ 3
+    )
+  ) %>%
   pivot_longer(names_to = "SBP_or_DBP", cols = c(SBP, DBP)) %>%
-    mutate(SBP_or_DBP = factor(SBP_or_DBP, levels = c("SBP", "DBP"), labels = c("Systolic BP","Diastolic BP"))) -> bp_data_for_boxplot
+  mutate(
+    SBP_or_DBP = factor(
+      SBP_or_DBP,
+      levels = c("SBP", "DBP"),
+      labels = c("Systolic BP", "Diastolic BP")
+    )
+  ) -> bp_data_for_boxplot
 
 bp_data_for_boxplot %>%
   ggplot(aes(x = as.factor(time), y = value, fill = SBP_or_DBP)) +
-   geom_point(position = position_jitterdodge(dodge.width = 0.6, jitter.width = 0.5),  
-   alpha = 0.9, size = 0.3, col = "grey") +
+  geom_point(
+    position = position_jitterdodge(dodge.width = 0.6, jitter.width = 0.5),
+    alpha = 0.9,
+    size = 0.3,
+    col = "grey"
+  ) +
   geom_boxplot(alpha = 0.7, width = 0.6, outliers = FALSE, size = 0.3) +
-  stat_summary(position = position_dodge(width = 0.6), 
-  fun = mean, geom='point', shape = 18, size = 3) + 
+  stat_summary(
+    position = position_dodge(width = 0.6),
+    fun = mean,
+    geom = 'point',
+    shape = 18,
+    size = 3
+  ) +
   scale_fill_manual(values = my_colors) +
-  labs(title = "Blood Pressure (mmHg) over Time", 
-  subtitle = "Ghana Blood Pressure Data Set Provided by the bp R-Package", 
-  y = NULL, 
-  x = "Time Elapsed",
-  caption = paste("Dr. Annette Witt\n Origami Data Science Services\n", format(Sys.Date(), format = "%d. %B %Y")),  
-  fill = NULL) +
- scale_x_discrete(labels = c("Baseline", "6 Months" , "12 Months")) + 
+  labs(
+    title = "Blood Pressure (mmHg) over Time",
+    subtitle = "Ghana Blood Pressure Data Set Provided by the bp R-Package",
+    y = NULL,
+    x = "Time Elapsed",
+    caption = paste(
+      "Dr. Annette Witt\n Origami Data Science Services\n",
+      format(Sys.Date(), format = "%d. %B %Y")
+    ),
+    fill = NULL
+  ) +
+  scale_x_discrete(labels = c("Baseline", "6 Months", "12 Months")) +
   theme_minimal() +
   theme(
-    panel.grid.minor.x = element_blank(), 
-    panel.grid.major.x = element_blank()
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 16)
   )
-
 ```
 
 This boxplot visualization shows the distribution of both systolic and diastolic blood pressure measurements across the three time points. The jittered points show individual measurements, while the diamonds indicate the mean values for each group.
 
-```{r}
-bp_data %>% 
-  select(ID, Time_Elapsed, SBP, DBP) %>% 
+```{r blood_pressure_correlation_second}
+#| fig-cap: Systolic and Diastolic blood pressure.
+bp_data %>%
+  select(ID, Time_Elapsed, SBP, DBP) %>%
   mutate(Time_Elapsed = factor(Time_Elapsed)) %>%
-  pivot_longer(cols = c("SBP", "DBP"),  names_to = "SBP_or_DBP", values_to = "BP") %>%
+  pivot_longer(
+    cols = c("SBP", "DBP"),
+    names_to = "SBP_or_DBP",
+    values_to = "BP"
+  ) %>%
   pivot_wider(names_from = Time_Elapsed, values_from = "BP") %>%
-  mutate( SBP_or_DBP = factor(SBP_or_DBP, levels = c("SBP", "DBP"), labels = c("Systolic BP","Diastolic BP"))) -> bp_for_corrplot
+  mutate(
+    SBP_or_DBP = factor(
+      SBP_or_DBP,
+      levels = c("SBP", "DBP"),
+      labels = c("Systolic BP", "Diastolic BP")
+    )
+  ) -> bp_for_corrplot
 
-odss_points_range <- function(data, mapping) { 
-  ggplot(data = data, mapping = mapping) + 
-    geom_abline(color = "darkgrey")+ 
+odss_points_range <- function(data, mapping) {
+  ggplot(data = data, mapping = mapping) +
+    geom_abline(color = "darkgrey") +
     geom_point(aes(color = SBP_or_DBP), size = 0.5, alpha = 0.5) +
     scale_y_continuous(limits = c(45, 200)) +
     scale_x_continuous(limits = c(45, 200)) +
     scale_color_manual(values = my_colors)
 }
 
-odss_dens_range <- function(data, mapping) { 
-  ggplot(data = data, mapping = mapping) +  
+odss_dens_range <- function(data, mapping) {
+  ggplot(data = data, mapping = mapping) +
     geom_density(aes(fill = SBP_or_DBP), alpha = 0.5, linewidth = 0.5) +
     scale_fill_manual(values = my_colors)
 }
 
-odss_hist_range <- function(data, mapping) { 
-  ggplot(data = data, mapping = mapping) +  
-    geom_histogram(aes(fill = SBP_or_DBP, color = SBP_or_DBP), position = "identity", binwidth = 10, alpha = 0.2, linewidth = 0.25) +
+odss_hist_range <- function(data, mapping) {
+  ggplot(data = data, mapping = mapping) +
+    geom_histogram(
+      aes(fill = SBP_or_DBP, color = SBP_or_DBP),
+      position = "identity",
+      binwidth = 10,
+      alpha = 0.2,
+      linewidth = 0.25
+    ) +
     scale_fill_manual(values = my_colors) +
     scale_color_manual(values = my_colors)
 }
@@ -116,48 +164,65 @@ odss_hist_range <- function(data, mapping) {
 odss_cor <- function(data, mapping) {
   x_var <- rlang::as_name(mapping$x)
   y_var <- rlang::as_name(mapping$y)
-  
+
   # Skip correlation calculation for diagonal elements (same variable)
   if (x_var == y_var) {
     return(ggplot() + theme_void())
   }
-  
-  cor_sbp <- cor(data[data$SBP_or_DBP == "Systolic BP", x_var], 
-                 data[data$SBP_or_DBP == "Systolic BP", y_var], 
-                 use = "complete.obs")
-  cor_dbp <- cor(data[data$SBP_or_DBP == "Diastolic BP", x_var], 
-                 data[data$SBP_or_DBP == "Diastolic BP", y_var], 
-                 use = "complete.obs")
-  
-  ggplot() + 
+
+  cor_sbp <- cor(
+    data[data$SBP_or_DBP == "Systolic BP", x_var],
+    data[data$SBP_or_DBP == "Systolic BP", y_var],
+    use = "complete.obs"
+  )
+  cor_dbp <- cor(
+    data[data$SBP_or_DBP == "Diastolic BP", x_var],
+    data[data$SBP_or_DBP == "Diastolic BP", y_var],
+    use = "complete.obs"
+  )
+
+  ggplot() +
     # Background rectangles for better visibility
-#    annotate("rect", xmin = 100, xmax = 100, ymin = 0.55, ymax = 0.75, 
-#             fill = "white", alpha = 0.8, color = "navy", linewidth = 0.5) +
-#    annotate("rect", xmin = 0.1, xmax = 0.9, ymin = 0.25, ymax = 0.45, 
-#             fill = "white", alpha = 0.8, color = "orange3", linewidth = 0.5) +
+    #    annotate("rect", xmin = 100, xmax = 100, ymin = 0.55, ymax = 0.75,
+    #             fill = "white", alpha = 0.8, color = "navy", linewidth = 0.5) +
+    #    annotate("rect", xmin = 0.1, xmax = 0.9, ymin = 0.25, ymax = 0.45,
+    #             fill = "white", alpha = 0.8, color = "orange3", linewidth = 0.5) +
     # Text annotations with larger size
-    annotate("text", x = 100, y = 80, 
-             label = paste("SBP:", round(cor_sbp, 2)), 
-             color = "navy", size = 4) +
-    annotate("text", x = 100, y = 120, 
-             label = paste("DBP:", round(cor_dbp, 2)), 
-             color = "orange3", size = 4) +
+    annotate(
+      "text",
+      x = 100,
+      y = 80,
+      label = paste("SBP:", round(cor_sbp, 2)),
+      color = "navy",
+      size = 4
+    ) +
+    annotate(
+      "text",
+      x = 100,
+      y = 120,
+      label = paste("DBP:", round(cor_dbp, 2)),
+      color = "orange3",
+      size = 4
+    ) +
     theme_void()
 }
 
 # Remove the scales from the main ggpairs call
 bp_for_corrplot %>%
-    ggpairs(columns = c('Baseline', '6Months', '12Months'), 
+  ggpairs(
+    columns = c('Baseline', '6Months', '12Months'),
     lower = list(continuous = odss_points_range),
     diag = list(continuous = odss_hist_range),
     upper = list(continuous = odss_cor),
-    columnLabels = c('Baseline', '6 Months', '12 Months')) +
+    columnLabels = c('Baseline', '6 Months', '12 Months')
+  ) +
   ggplot2::coord_cartesian(xlim = c(45, 200)) +
   theme_minimal() +
   theme(
-  panel.grid.major.y = element_blank(), 
-  panel.grid.major.x = element_blank(),   
-  panel.grid.minor.x = element_blank(),   
-  panel.grid.minor.y = element_blank()   
+    text = element_text(size = 16),
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.minor.y = element_blank()
   )
 ```

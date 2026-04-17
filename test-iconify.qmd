@@ -1,0 +1,10 @@
+---
+title: "Test Iconify"
+format: html
+---
+
+Testing iconify shortcodes:
+
+- GitHub: {{< iconify simple-icons:github >}}
+- R: {{< iconify simple-icons r >}}
+- Python: {{< iconify simple-icons:python >}}

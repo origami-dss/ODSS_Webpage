@@ -9,7 +9,7 @@ editor_options:
  --- | -->
 ---
 title: "Annette Witt, PhD"
-subtitle: "Data Scientist | DataViz Expert | R Programmer"
+subtitle: "Data Scientist | DataViz Expert | {{< iconify simple-icons r >}} Programmer "
 about:
   image: Annette_Dec2025.png
   image-alt: Photo of Dr. Annette Witt

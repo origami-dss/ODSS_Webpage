@@ -1,0 +1,10 @@
+name: ODSS_WebPage_b
+title:
+username: origami-data-science-services
+account: origami-data-science-services
+server: connect.posit.cloud
+hostUrl: https://api.connect.posit.cloud/v1
+appId: 019d9c49-f6d2-5425-61ac-6a1b5d78db71
+bundleId:
+url: https://connect.posit.cloud/origami-data-science-services/content/019d9c49-f6d2-5425-61ac-6a1b5d78db71
+version: 1

@@ -89,10 +89,7 @@ data_fig_ecgs %>%
     x = "Time [ms]",
     y = "",
     title = "Three modelled Stochastic Oscillations with a Frequency of 22.5 Hz",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    )
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
   ) +
   scale_x_continuous(
     limits = c(-2, 1010),
@@ -210,10 +207,7 @@ freq_res_for_boxplot %>%
   labs(
     x = "Estimated Frequency (Hz)",
     title = "Benchmarks of Frequency Estimation Techniques",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    )
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
   ) +
   scale_x_continuous(
     breaks = seq(15, 25, by = 5),

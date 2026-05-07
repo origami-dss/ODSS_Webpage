@@ -101,10 +101,7 @@ ggplot() +
     y = "Event Rate",
     title = "Event Rates for a Poisson Process\n",
     col = "Data/ Models",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    )
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
   ) +
   theme_minimal() +
   theme(
@@ -190,10 +187,7 @@ ggplot() +
     y = "Event Rate",
     title = "Event Rates for a Poisson Process\nwith a Time-Dependent Rate",
     col = "Data/ Models",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    )
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
   ) +
   theme_minimal() +
   theme(

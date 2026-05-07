@@ -64,11 +64,8 @@ data_fig_ecgs |>
   ) +
   labs(
     x = "Time [ms]",
-    title = "Four Examples of Murine ECGs (Source: R Package FibFreq) \n",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    )
+    title = "Four Examples of Murine ECGs (Source: R Package FibFreq)",
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
   ) +
   scale_y_continuous(NULL, expand = expansion(mult = c(0, 0)), breaks = NULL) +
   scale_x_continuous(

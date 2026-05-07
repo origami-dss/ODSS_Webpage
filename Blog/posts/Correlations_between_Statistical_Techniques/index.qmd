@@ -1,19 +1,20 @@
 ---
-title: "Correlations between Statistical Estimators"
-date: "2026-03-28"
-description: "How different are estimators of the same quantity?"
-categories: [ggplot, DataViz]
+title: "Visualization of Complex Data Sets"
+date: "2026-05-18"
+description: "How to present data to practitioners?"
+categories: [ggplot, DataViz, Analysis]
+image: "index_files/figure-html/stacked_bar_plot_and_categories-1.png"
 format: 
   html: 
     extends: _formats.yml
 ---
-In data science we are often confronted  with the same quantity measured at different times or at different spatial locations, or with different devices or different statistical estimators the same quantity. How to dependent are the results? In this post, I will vizualize it.
+In data science, we are often confronted with repeated measurements of the same quantity, taken at different times, at different spatial locations, or with different devices. An important question is how such data can be visualized effectively.
 
-As test data I will use a blood presure data compiled in Ghana, were the blood pressure of a large cohort was recorded for most patients three times. Each measurement consist of two numbers: the systolic and the diastoloc pressure.
+As an example, we consider a blood pressure dataset provided by the {{< iconify simple-icons r >}} package bp. The dataset contains measurements from a large cohort in Ghana whose blood pressure was recorded at three time points: at baseline, when treatment was initiated, and again after 6 and 12 months. Each observation consists of two values: systolic and diastolic blood pressure. 
 
 ```{r setup_and_load_packages, message = FALSE}
 # Packages required for this blog entry
-packages <- c("tidyverse", "bp", "scico", "corrViz", "GGally")
+packages <- c("tidyverse", "bp", "scico", "corrViz", "GGally", "ggside")
 
 # Install packages not yet installed
 installed_packages <- packages %in% rownames(installed.packages())
@@ -40,22 +41,22 @@ bp_ghana %>%
 # show the head of the table
 head(bp_data)
 
-my_colors <- c("Systolic BP" = "darkblue", "Diastolic BP" = "coral")
+bp_ghana %>%
+  filter(Time_Elapsed == "Baseline") %>% # filter the baseline data
+  filter(!is.na(SBP) & !is.na(DBP)) -> bp_baseline_data # remove all rows with NA value od the blood pressure
 ```
 
-This results in a table with 547 different patient IDs. 
+This results in two tables: the table $bp_ghana$ with 547 rows, each of them representing the data of a single patient and the table ""bp_ghana_baseline with 756 rows containing the data recorded at baseline.
 
-In a first graphical presentation I  present  blood pressure data as boxplots in dependence on the elapsed time.
+In a first graphical presentation I  present the blood pressure data  of the first table as boxplots in as a function of elapsed time.
 
 
 
 ```{r plot_boxplots}
 #| fig-align: center
 #| fig-width: 8
-#| fig-height: 6
-#| fig-cap: Systolic and Diastolic blood pressure.
+#| fig-cap: Systolic and Diastolic blood pressure at three time points.
 #| 
-COLS = scico(6, palette = 'oleron')
 # prepare data table for boxplot
 bp_data %>%
   select(ID, Time_Elapsed, SBP, DBP) %>%
@@ -91,138 +92,403 @@ bp_data_for_boxplot %>%
     shape = 18,
     size = 3
   ) +
-  scale_fill_manual(values = my_colors) +
+  scale_fill_manual(values = c("red", "navy")) +
   labs(
     title = "Blood Pressure (mmHg) over Time",
-    subtitle = "Ghana Blood Pressure Data Set Provided by the bp R-Package",
+    subtitle = "Ghana BP Data Set (see R-Package bp)",
     y = NULL,
     x = "Time Elapsed",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    ),
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services",
     fill = NULL
   ) +
   scale_x_discrete(labels = c("Baseline", "6 Months", "12 Months")) +
   theme_minimal() +
   theme(
     panel.grid.minor.x = element_blank(),
-    panel.grid.major.x = element_blank(),
-    text = element_text(size = 16)
+    panel.grid.major.x = element_blank()
   )
 ```
 
-This boxplot visualization shows the distribution of both systolic and diastolic blood pressure measurements across the three time points. The jittered points show individual measurements, while the diamonds indicate the mean values for each group.
+This boxplot visualization shows the distribution of both systolic and diastolic blood pressure measurements across the three time points. The jittered points show individual measurements, while the diamonds indicate the mean values for each group. What can we learn from this graphics?
 
-```{r blood_pressure_correlation_second}
-#| fig-cap: Systolic and Diastolic blood pressure.
-bp_data %>%
-  select(ID, Time_Elapsed, SBP, DBP) %>%
-  mutate(Time_Elapsed = factor(Time_Elapsed)) %>%
-  pivot_longer(
-    cols = c("SBP", "DBP"),
-    names_to = "SBP_or_DBP",
-    values_to = "BP"
-  ) %>%
-  pivot_wider(names_from = Time_Elapsed, values_from = "BP") %>%
+-  The blood pressure at baseline is to high. 
+-  The treatment is lowering the blood pressure (both values) for  a large group of the patients. However, we cannot quantify the size of that group.
+-  The diastoloc blood pressure is lower than the systolic blood pressure (as it has to be). 
+
+There should be more information in this data set.
+In a second step, we will vizualize the baseline of the BP measurements:  
+```{r scatterplot_and_histograms}
+#| fig-align: center
+#| fig-width: 8
+#| fig-cap: Systolic versus diastolic blood pressure at baseline.
+#
+
+# Compute histograms with breaks aligned to binwidth = 5
+dbp_breaks <- seq(
+  floor(min(bp_baseline_data$DBP) / 5) * 5,
+  ceiling(max(bp_baseline_data$DBP) / 5) * 5,
+  by = 5
+)
+
+sbp_breaks <- seq(
+  floor(min(bp_baseline_data$SBP) / 5) * 5,
+  ceiling(max(bp_baseline_data$SBP) / 5) * 5,
+  by = 5
+)
+
+# count the blood pressure data into the bins
+dbp_counts <- bp_baseline_data %>%
+  mutate(bin = cut(DBP, breaks = dbp_breaks, right = FALSE)) %>%
+  filter(!is.na(bin)) %>%
+  count(bin) %>%
   mutate(
-    SBP_or_DBP = factor(
-      SBP_or_DBP,
-      levels = c("SBP", "DBP"),
-      labels = c("Systolic BP", "Diastolic BP")
-    )
-  ) -> bp_for_corrplot
-
-odss_points_range <- function(data, mapping) {
-  ggplot(data = data, mapping = mapping) +
-    geom_abline(color = "darkgrey") +
-    geom_point(aes(color = SBP_or_DBP), size = 0.5, alpha = 0.5) +
-    scale_y_continuous(limits = c(45, 200)) +
-    scale_x_continuous(limits = c(45, 200)) +
-    scale_color_manual(values = my_colors)
-}
-
-odss_dens_range <- function(data, mapping) {
-  ggplot(data = data, mapping = mapping) +
-    geom_density(aes(fill = SBP_or_DBP), alpha = 0.5, linewidth = 0.5) +
-    scale_fill_manual(values = my_colors)
-}
-
-odss_hist_range <- function(data, mapping) {
-  ggplot(data = data, mapping = mapping) +
-    geom_histogram(
-      aes(fill = SBP_or_DBP, color = SBP_or_DBP),
-      position = "identity",
-      binwidth = 10,
-      alpha = 0.2,
-      linewidth = 0.25
-    ) +
-    scale_fill_manual(values = my_colors) +
-    scale_color_manual(values = my_colors)
-}
-
-odss_cor <- function(data, mapping) {
-  x_var <- rlang::as_name(mapping$x)
-  y_var <- rlang::as_name(mapping$y)
-
-  # Skip correlation calculation for diagonal elements (same variable)
-  if (x_var == y_var) {
-    return(ggplot() + theme_void())
-  }
-
-  cor_sbp <- cor(
-    data[data$SBP_or_DBP == "Systolic BP", x_var],
-    data[data$SBP_or_DBP == "Systolic BP", y_var],
-    use = "complete.obs"
-  )
-  cor_dbp <- cor(
-    data[data$SBP_or_DBP == "Diastolic BP", x_var],
-    data[data$SBP_or_DBP == "Diastolic BP", y_var],
-    use = "complete.obs"
+    bin_index = as.integer(bin),
+    bin_mid = dbp_breaks[bin_index] + 2.5
   )
 
-  ggplot() +
-    # Background rectangles for better visibility
-    #    annotate("rect", xmin = 100, xmax = 100, ymin = 0.55, ymax = 0.75,
-    #             fill = "white", alpha = 0.8, color = "navy", linewidth = 0.5) +
-    #    annotate("rect", xmin = 0.1, xmax = 0.9, ymin = 0.25, ymax = 0.45,
-    #             fill = "white", alpha = 0.8, color = "orange3", linewidth = 0.5) +
-    # Text annotations with larger size
-    annotate(
-      "text",
-      x = 100,
-      y = 80,
-      label = paste("SBP:", round(cor_sbp, 2)),
-      color = "navy",
-      size = 4
-    ) +
-    annotate(
-      "text",
-      x = 100,
-      y = 120,
-      label = paste("DBP:", round(cor_dbp, 2)),
-      color = "orange3",
-      size = 4
-    ) +
-    theme_void()
-}
+sbp_counts <- bp_baseline_data %>%
+  mutate(bin = cut(SBP, breaks = sbp_breaks, right = FALSE)) %>%
+  filter(!is.na(bin)) %>%
+  count(bin) %>%
+  mutate(
+    bin_index = as.integer(bin),
+    bin_mid = sbp_breaks[bin_index] + 2.5
+  )
 
-# Remove the scales from the main ggpairs call
-bp_for_corrplot %>%
-  ggpairs(
-    columns = c('Baseline', '6Months', '12Months'),
-    lower = list(continuous = odss_points_range),
-    diag = list(continuous = odss_hist_range),
-    upper = list(continuous = odss_cor),
-    columnLabels = c('Baseline', '6 Months', '12 Months')
+# Compute the correlation coefficient and prepare the label
+cor_val <- cor(bp_baseline_data$DBP, bp_baseline_data$SBP)
+r2_val <- cor_val^2
+cor_label <- sprintf(
+  "N = %3d\nr = %.2f\nR² = %.2f",
+  nrow(bp_baseline_data),
+  cor_val,
+  r2_val
+)
+
+
+# plot the data
+bp_baseline_data %>%
+  ggplot(aes(x = DBP, y = SBP)) +
+  geom_point(size = 2, alpha = 0.3) +
+  geom_smooth(
+    method = "lm",
+    formula = y ~ x,
+    se = TRUE,
+    color = "grey30",
+    linewidth = 0.8
   ) +
-  ggplot2::coord_cartesian(xlim = c(45, 200)) +
+  annotate(
+    "text",
+    x = Inf,
+    y = -Inf,
+    label = cor_label,
+    hjust = 1.1,
+    vjust = -0.5,
+    size = 4,
+    fontface = "italic"
+  ) +
+  geom_xsidehistogram(
+    breaks = dbp_breaks,
+    col = "grey",
+    fill = "red",
+    alpha = 0.5
+  ) +
+  geom_ysidehistogram(
+    breaks = sbp_breaks,
+    col = "grey",
+    fill = "navy",
+    alpha = 0.5
+  ) +
+  geom_xsidetext(
+    data = dbp_counts,
+    aes(x = bin_mid, y = n, label = n),
+    hjust = 0.5, # centered horizontally
+    vjust = -0.5,
+    size = 3,
+    inherit.aes = FALSE
+  ) +
+  geom_ysidetext(
+    data = sbp_counts,
+    aes(x = n, y = bin_mid, label = n),
+    hjust = -0.5, # just right of bar end
+    vjust = 0.5, # centered vertically
+    size = 3,
+    inherit.aes = FALSE
+  ) +
+  scale_xsidey_continuous(limits = c(0, 170), expand = c(0, 0)) +
+  scale_ysidex_continuous(limits = c(0, 170), expand = c(0, 0)) +
+  coord_fixed(ratio = 1) +
+  labs(
+    x = "Diastolic BP (mmHg)",
+    y = "Systolic BP (mmHg)",
+    title = paste(
+      "Blood Pressure of",
+      nrow(bp_baseline_data),
+      "Hypertension Patients"
+    ),
+    subtitle = "Ghana BP Data Set (see R-Package bp)",
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
+  ) +
   theme_minimal() +
   theme(
-    text = element_text(size = 16),
-    panel.grid.major.y = element_blank(),
-    panel.grid.major.x = element_blank(),
+    ggside.panel.scale.x = 0.3,
+    ggside.panel.scale.y = 0.3,
+    axis.title.x = element_text(
+      hjust = 0.5 * (1 / 1.3),
+      margin = margin(t = 10)
+    ),
+    axis.title.y = element_text(
+      hjust = 0.5 * (1 / 1.3),
+      margin = margin(r = 10)
+    ),
+    axis.ticks.length = unit(0, "cm"),
+    panel.grid = element_blank(),
     panel.grid.minor.x = element_blank(),
-    panel.grid.minor.y = element_blank()
+    panel.grid.minor.y = element_blank(),
+    ggside.panel.grid = element_blank(),
+    ggside.axis.text.x = element_blank(),
+    ggside.axis.text.y = element_blank(),
+    ggside.axis.ticks.x = element_blank(),
+    ggside.axis.ticks.y = element_blank()
   )
 ```
+This representation of the blood pressure data may be particularly useful in a statistics course. It illustrates, for example, that the correlation between systolic and diastolic blood pressure is relatively weak. In a randomly selected population, this correlation would likely be stronger, whereas the present dataset consists exclusively of patients with hypertension.
+
+For healthcare practitioners or nurses, however, this visualization is probably too complex. We therefore seek a representation that is more intuitive and accessible to audiences without a statistical background. To this end, we classify the measurements into six blood pressure categories: low, normal, prehypertension, and three stages of hypertension.
+
+```{r scatterplot_and_categories}
+#| fig-align: center
+#| fig-width: 8
+#| fig-cap: Systolic and Diastolic blood pressure at baseline with blood pressure categories.
+#| 
+bp_baseline_data %>%
+  select(SBP, DBP) %>%
+  mutate(
+    BP_level = case_when(
+      DBP > 110 | SBP > 180 ~ "Hypertension Stage 3",
+      DBP > 100 | SBP > 160 ~ "Hypertension Stage 2",
+      DBP > 90 | SBP > 140 ~ "Hypertension Stage 1",
+      DBP > 80 | SBP > 120 ~ "Prehypertension",
+      DBP > 60 | SBP > 90 ~ "Normal",
+      .default = "Low"
+    )
+  ) -> bp_baseline_plot_data
+
+
+data_bg <- data.frame(
+  xmin = rep(-Inf, 6),
+  xmax = rev(c(60, 80, 90, 100, 110, Inf)),
+  ymin = rep(-Inf, 6),
+  ymax = rev(c(90, 120, 140, 160, 180, Inf)),
+  bp_category = factor(
+    c(
+      "Hypertension Stage 3",
+      "Hypertension Stage 2",
+      "Hypertension Stage 1",
+      "Prehypertension",
+      "Normal",
+      "Low"
+    ),
+    levels = c(
+      "Hypertension Stage 3",
+      "Hypertension Stage 2",
+      "Hypertension Stage 1",
+      "Prehypertension",
+      "Normal",
+      "Low"
+    )
+  )
+)
+
+bp_baseline_data %>%
+  ggplot(aes(x = DBP, y = SBP)) +
+  geom_rect(
+    data = data_bg,
+    aes(
+      xmin = xmin,
+      xmax = xmax,
+      ymin = ymin,
+      ymax = ymax,
+      fill = bp_category
+    ),
+    inherit.aes = FALSE
+  ) +
+  geom_point(size = 0.5) +
+  scale_fill_manual(
+    values = c(
+      "Hypertension Stage 3" = "#990F02",
+      "Hypertension Stage 2" = "#E3242B",
+      "Hypertension Stage 1" = "#fca103",
+      "Prehypertension" = "#fcf81e",
+      "Normal" = "#05d319",
+      "Low" = "#1e7cd3"
+    )
+  ) +
+  scale_x_continuous(limits = c(50, 125), breaks = c(60, 80, 90, 100, 110)) +
+  scale_y_continuous(limits = c(80, 195), breaks = c(90, 120, 140, 160, 180)) +
+  labs(
+    x = "Diastolic BP (mmHg)",
+    y = "Systolic BP (mmHg)",
+    title = paste(
+      "Blood Pressure of",
+      nrow(bp_baseline_data),
+      "Untreated Hypertension Patients"
+    ),
+    subtitle = "Ghana BP Data Set (see R-Package bp)",
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services",
+    fill = "Blood Pressure Category"
+  ) +
+  coord_fixed(ratio = 1) +
+  theme_minimal()
+```
+
+This chart has two main strengths:
+
+- Each patient’s blood pressure measurement is represented by a single point, allowing both systolic and diastolic values to be read directly.
+- The blood pressure category is indicated by the background color, making the classification immediately visible. At the same time, the plot clearly reveals that the vast majority of patients suffer from hypertension.
+
+However, this representation is less suitable for assessing the effectiveness of medical interventions, since the number or proportion of patients within each category is difficult to judge visually. We therefore turn to stacked bar charts that summarize the distribution of patients across the blood pressure categories. This requires an elementary data analysis step, namely assigning each blood pressure measurement to a category.
+
+```{r stacked_bar_plot_and_categories}
+bp_data %>%
+  select(c(Time_Elapsed, SBP, DBP)) %>%
+  mutate(
+    BP_level = case_when(
+      DBP > 110 | SBP > 180 ~ "Hypertension Stage 3",
+      DBP > 100 | SBP > 160 ~ "Hypertension Stage 2",
+      DBP > 90 | SBP > 140 ~ "Hypertension Stage 1",
+      DBP > 80 | SBP > 120 ~ "Prehypertension",
+      DBP > 60 | SBP > 90 ~ "Normal",
+      .default = "Low"
+    )
+  ) %>%
+  mutate(
+    BP_level = factor(
+      BP_level,
+      levels = c(
+        "Low",
+        "Normal",
+        "Prehypertension",
+        "Hypertension Stage 1",
+        "Hypertension Stage 2",
+        "Hypertension Stage 3"
+      )
+    )
+  ) %>%
+  select(-c(SBP, DBP)) %>%
+  group_by(Time_Elapsed, BP_level) %>%
+  summarize(group_size = n(), .groups = "drop_last") %>%
+  group_by(Time_Elapsed) %>%
+  mutate(no_of_patients = sum(group_size)) %>%
+  ungroup() %>%
+  mutate(group_size_perc = 100 * group_size / no_of_patients) %>%
+  select(-c(group_size, no_of_patients)) %>%
+  mutate(
+    group_size_perc_plus_minus = case_when(
+      BP_level %in%
+        c(
+          "Hypertension Stage 1",
+          "Hypertension Stage 2",
+          "Hypertension Stage 3"
+        ) ~ -group_size_perc,
+      .default = group_size_perc
+    )
+  ) %>%
+  mutate(
+    smaller_or_larger_than_0 = if_else(
+      group_size_perc_plus_minus > 0,
+      TRUE,
+      FALSE
+    )
+  ) %>%
+  arrange(Time_Elapsed, BP_level) %>%
+  group_by(Time_Elapsed, smaller_or_larger_than_0) %>%
+  mutate(
+    label_pos = if_else(
+      smaller_or_larger_than_0,
+      rev(cumsum(rev(group_size_perc_plus_minus))),
+      cumsum((group_size_perc_plus_minus))
+    )
+  ) %>%
+  ungroup() %>%
+  mutate(
+    label_pos_centered = if_else(
+      smaller_or_larger_than_0,
+      label_pos - 0.5 * group_size_perc,
+      label_pos + 0.5 * group_size_perc
+    )
+  ) %>%
+  mutate(
+    BP_level = factor(
+      BP_level,
+      levels = c(
+        "Low",
+        "Normal",
+        "Prehypertension",
+        "Hypertension Stage 3",
+        "Hypertension Stage 2",
+        "Hypertension Stage 1"
+      )
+    )
+  ) -> tibble_for_stacked_barplot
+
+
+tibble_for_stacked_barplot %>%
+  mutate(
+    Time_Elapsed = factor(
+      Time_Elapsed,
+      levels = c("Baseline", "6Months", "12Months"),
+      labels = c("Baseline", "6 Months", "12 Months")
+    )
+  ) %>%
+  ggplot(aes(
+    fill = BP_level,
+    x = Time_Elapsed,
+    y = group_size_perc_plus_minus
+  )) +
+  geom_bar(stat = "identity", width = 0.6) +
+  geom_text(
+    aes(
+      y = label_pos_centered,
+      label = sprintf("%.1f%%", abs(group_size_perc))
+    ),
+    size = 3,
+    color = "black",
+    fontface = "bold"
+  ) +
+  geom_hline(yintercept = 0, col = "grey") +
+  scale_fill_manual(
+    values = c(
+      "Hypertension Stage 3" = "#990F02",
+      "Hypertension Stage 2" = "#E3242B",
+      "Hypertension Stage 1" = "#fca103",
+      "Prehypertension" = "#fcf81e",
+      "Normal" = "#05d319",
+      "Low" = "#1e7cd3"
+    ),
+    breaks = c(
+      "Low",
+      "Normal",
+      "Prehypertension",
+      "Hypertension Stage 1",
+      "Hypertension Stage 2",
+      "Hypertension Stage 3"
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Blood Pressure Category of 547 Patients before and after Treatment",
+    subtitle = "Ghana BP Data Set (see  R-Package bp)",
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services",
+    fill = "Blood Pressure Category"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.text.y = element_blank()
+  )
+```
+
+This representation of the dataset provides a clear and easily understandable summary of the blood pressure measurements at baseline and of the effects of the medical intervention. After treatment, approximately half of the patients exhibit normal blood pressure. There is just little improvement between the second and third measurement.  The proportion of patients with stage 3 hypertension remains nearly unchanged.

@@ -67,10 +67,7 @@ tibble(time = time, sunspots = smoothed_sunspot_data) %>%
     x = "Time [month]",
     y = " ",
     title = "Smoothed Sunspot Data with Identified Maxima",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    )
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
   ) +
   theme_minimal() +
   theme(
@@ -121,10 +118,7 @@ tibble_Lorentz_plot %>%
   labs(
     x = "Frequency [1/yr]",
     title = "Smoothed Sunspot Data: Fourier Amplitudes and Lorentz Model",
-    caption = paste(
-      "Dr. Annette Witt\n Origami Data Science Services\n",
-      format(Sys.Date(), format = "%d. %B %Y")
-    )
+    caption = "Dr. Annette Witt (2026)\n Origami Data Science Services"
   ) +
   theme_minimal() +
   theme(

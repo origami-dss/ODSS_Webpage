@@ -14,6 +14,7 @@ files = [
     "test-iconify.qmd",
     "_quarto.yml",
     "styles.scss",
+    "renv.lock",
     "_extensions/**",
     "posts/**",
     ".posit/publish/ODSS_WebPage_b-AFLG.toml",

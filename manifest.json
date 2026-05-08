@@ -5,13 +5,16 @@
   "metadata": {
     "appmode": "quarto-static",
     "primary_rmd": "index.qmd",
-    "primary_html": null,
+    "primary_html": {},
     "content_category": "site",
     "has_parameters": false
   },
   "quarto": {
     "version": "1.9.37",
-    "engines": ["markdown", "knitr"]
+    "engines": [
+      "markdown",
+      "knitr"
+    ]
   },
   "packages": {
     "DBI": {
@@ -48,7 +51,7 @@
     },
     "FibFreq": {
       "Source": "github",
-      "Repository": null,
+      "Repository": {},
       "description": {
         "Package": "FibFreq",
         "Title": "An R package for Computing the Fundamental Frequency of Time\nSeries",
@@ -4852,7 +4855,37 @@
     },
     "styles.scss": {
       "checksum": "ee050b764b91f6c386ce86df41de867b"
+    },
+    "blog.qmd": {
+      "checksum": "273fab4e8194848d455fe42df5fc030f"
+    },
+    "posts/_metadata.yml": {
+      "checksum": "5ebf2377a18d952710466bb3f9474022"
+    },
+    "posts/Comparing_Statistical_Techniques/index.qmd": {
+      "checksum": "3e59421c46b65dbc274d390c6def1805"
+    },
+    "posts/Correlations_between_Statistical_Techniques/index.qmd": {
+      "checksum": "6eca42467f25939743a37eefb780c63d"
+    },
+    "posts/Event_Series/Data/floods_per_century.csv": {
+      "checksum": "492ab37b9074aafeaa1e329ef6020b02"
+    },
+    "posts/Event_Series/Data/floods_per_year.csv": {
+      "checksum": "15a0f0fa0a7fee45a0453f5f079847e0"
+    },
+    "posts/Event_Series/index.qmd": {
+      "checksum": "3774534b26e7c8bb053d3fa7410058f0"
+    },
+    "posts/Fibrillation_ECGs/index.qmd": {
+      "checksum": "073f15e3e4c435e0d883304ea3a778a4"
+    },
+    "posts/Knitting_Paper/index.qmd": {
+      "checksum": "e4329f7830bdc430db7892658e792504"
+    },
+    "posts/Regularity_Sunspot_Cycle/index.qmd": {
+      "checksum": "9ee9856c1b3f56975db9222ce2b032b3"
     }
   },
-  "users": null
+  "users": {}
 }

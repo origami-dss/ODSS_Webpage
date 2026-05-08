@@ -6,18 +6,18 @@ type = "quarto-static"
 entrypoint = "index.qmd"
 title = "ODSS_WebPage_b"
 files = [
-    "/About.qmd",
-    "/Services.qmd",
-    "/blog.qmd",
-    "/index.qmd",
-    "/privacy_policy.qmd",
-    "/test-iconify.qmd",
-    "/_quarto.yml",
-    "/styles.scss",
-    "/_extensions/**",
-    "/posts/**",
-    "/.posit/publish/ODSS_WebPage_b-AFLG.toml",
-    "/.posit/publish/deployments/deployment-QAQV.toml",
+    "About.qmd",
+    "Services.qmd",
+    "blog.qmd",
+    "index.qmd",
+    "privacy_policy.qmd",
+    "test-iconify.qmd",
+    "_quarto.yml",
+    "styles.scss",
+    "_extensions/**",
+    "posts/**",
+    ".posit/publish/ODSS_WebPage_b-AFLG.toml",
+    ".posit/publish/deployments/deployment-QAQV.toml",
 ]
 validate = true
 product_type = "connect_cloud"

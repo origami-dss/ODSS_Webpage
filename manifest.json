@@ -1,7 +1,11 @@
 {
   "version": 1,
   "locale": "en_US",
-  "platform": "4.5.3",
+  "platform": {
+    "r": {
+      "version": "4.5.3"
+    }
+  },
   "metadata": {
     "appmode": "quarto-static",
     "primary_rmd": "index.qmd",

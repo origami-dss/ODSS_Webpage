@@ -10,16 +10,59 @@ id = "019e0658-c75b-c920-39ee-77f0c438c668"
 dashboard_url = "https://connect.posit.cloud/origami-data-science-services/content/019e0658-c75b-c920-39ee-77f0c438c668"
 direct_url = "https://019e0658-c75b-c920-39ee-77f0c438c668.share.connect.posit.cloud"
 logs_url = "https://connect.posit.cloud/origami-data-science-services/content/019e0658-c75b-c920-39ee-77f0c438c668/history"
-deployed_at = "2026-05-08T07:05:29.915Z"
-bundle_id = "019e0667-9727-7324-1997-1536f4e3faf5"
+deployed_at = "2026-05-08T07:31:41.064Z"
+bundle_id = "019e067f-c40d-974b-a305-158097dcf3ab"
 files = [
     ".posit/publish/ODSS_WebPage_b-AFLG.toml",
     ".posit/publish/deployments/deployment-QAQV.toml",
     "About.qmd",
     "Services.qmd",
+    "_extensions/mcanouil/iconify/LICENSE",
+    "_extensions/mcanouil/iconify/_extension.yml",
+    "_extensions/mcanouil/iconify/_modules/logging.lua",
+    "_extensions/mcanouil/iconify/_modules/metadata.lua",
+    "_extensions/mcanouil/iconify/_modules/string.lua",
+    "_extensions/mcanouil/iconify/_schema.yml",
+    "_extensions/mcanouil/iconify/_snippets.json",
+    "_extensions/mcanouil/iconify/iconify-icon.min.js",
+    "_extensions/mcanouil/iconify/iconify.lua",
+    "_extensions/quarto-ext/fontawesome/_extension.yml",
+    "_extensions/quarto-ext/fontawesome/assets/LICENSE.txt",
+    "_extensions/quarto-ext/fontawesome/assets/css/all.css",
+    "_extensions/quarto-ext/fontawesome/assets/css/all.min.css",
+    "_extensions/quarto-ext/fontawesome/assets/css/latex-fontsize.css",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-brands-400.ttf",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-brands-400.woff2",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-regular-400.ttf",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-regular-400.woff2",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-solid-900.ttf",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-solid-900.woff2",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-v4compatibility.ttf",
+    "_extensions/quarto-ext/fontawesome/assets/webfonts/fa-v4compatibility.woff2",
+    "_extensions/quarto-ext/fontawesome/fontawesome.lua",
+    "_extensions/schochastics/academicons/_extension.yml",
+    "_extensions/schochastics/academicons/academicons.lua",
+    "_extensions/schochastics/academicons/assets/css/all.css",
+    "_extensions/schochastics/academicons/assets/css/size.css",
+    "_extensions/schochastics/academicons/assets/webfonts/academicons.eot",
+    "_extensions/schochastics/academicons/assets/webfonts/academicons.svg",
+    "_extensions/schochastics/academicons/assets/webfonts/academicons.ttf",
+    "_extensions/schochastics/academicons/assets/webfonts/academicons.woff",
     "_quarto.yml",
+    "blog.qmd",
     "index.qmd",
+    "posts/Comparing_Statistical_Techniques/index.qmd",
+    "posts/Correlations_between_Statistical_Techniques/index.qmd",
+    "posts/Event_Series/Data/floods_per_century.csv",
+    "posts/Event_Series/Data/floods_per_year.csv",
+    "posts/Event_Series/index.qmd",
+    "posts/Fibrillation_ECGs/index.qmd",
+    "posts/Knitting_Paper/index.qmd",
+    "posts/Regularity_Sunspot_Cycle/index.qmd",
+    "posts/_metadata.yml",
     "privacy_policy.qmd",
+    "renv.lock",
+    "styles.scss",
     "test-iconify.qmd",
 ]
 
@@ -32,15 +75,25 @@ type = "quarto-static"
 entrypoint = "index.qmd"
 title = "ODSS_WebPage_b"
 files = [
-    "/About.qmd",
-    "/Services.qmd",
-    "/index.qmd",
-    "/privacy_policy.qmd",
-    "/test-iconify.qmd",
-    "/_quarto.yml",
-    "/.posit/publish/ODSS_WebPage_b-AFLG.toml",
-    "/.posit/publish/deployments/deployment-QAQV.toml",
+    "About.qmd",
+    "Services.qmd",
+    "blog.qmd",
+    "index.qmd",
+    "privacy_policy.qmd",
+    "test-iconify.qmd",
+    "_quarto.yml",
+    "styles.scss",
+    "renv.lock",
+    "_extensions/**",
+    "posts/**",
+    ".posit/publish/ODSS_WebPage_b-AFLG.toml",
+    ".posit/publish/deployments/deployment-QAQV.toml",
 ]
 validate = true
 product_type = "connect_cloud"
+
+[deployment_error]
+code = "deployFailed"
+message = "Unsupported software version: R version Unknown is not supported. Please update your dependency file to a supported version."
+operation = "publish"
 

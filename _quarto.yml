@@ -23,9 +23,6 @@ website:
       - text: "Privacy Policy"
         href: privacy_policy.qmd
 
-filters:
-  - iconify
-
 format:
   html:
     fontsize: 20px

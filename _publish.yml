@@ -1,0 +1,4 @@
+- source: project
+  connect:
+    - url: https://connect.posit.cloud
+      id: ODSS_WebPage_b

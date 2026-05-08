@@ -8,5 +8,36 @@
       }
     ]
   },
-  "Packages": {}
+  "Packages": {
+    "knitr": {
+      "Package": "knitr",
+      "Version": "1.51",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
+    "rmarkdown": {
+      "Package": "rmarkdown",
+      "Version": "2.31",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
+    "tidyverse": {
+      "Package": "tidyverse",
+      "Version": "2.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
+    "ggplot2": {
+      "Package": "ggplot2",
+      "Version": "4.0.2",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
+    "dplyr": {
+      "Package": "dplyr",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    }
+  }
 }

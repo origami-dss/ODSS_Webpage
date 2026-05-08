@@ -14,7 +14,7 @@ website:
        - text: "Services"
          href: Services.qmd
        - text: "Blog"
-         href: Blog/index.qmd
+         href: blog.qmd
   page-footer:
     left: "Made with {{< iconify simple-icons quarto >}} Quarto and {{< iconify simple-icons r >}}"
     right:

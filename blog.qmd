@@ -1,8 +1,7 @@
 ---
-subtitle: "**ANNETTE'S BLOG: Small {{< iconify simple-icons r >}} projects**"
-
+title: "Annette's Blog: Small  {{< iconify simple-icons r >}} projects" 
 description: 
-  I am an enthusiastic {{< iconify simple-icons r >}} user. In this blog, I highlight my preferred features of {{< iconify simple-icons r >}} through practical examples.
+  I am an enthusiastic {{< iconify simple-icons r >}} user. In this blog, I highlight my preferred features of {{< iconify simple-icons r >}} through small practical examples.
   You will find concise data analysis and visualization projects, each accompanied by fully reproducible {{< iconify simple-icons r >}} code.
 listing:
   contents: posts

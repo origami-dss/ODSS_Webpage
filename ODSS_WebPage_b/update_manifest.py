@@ -1,4 +1,6 @@
-import json, hashlib, os
+import json
+import hashlib
+import os
 
 def file_hash(path):
     with open(path, 'rb') as f:

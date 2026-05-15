@@ -26,14 +26,16 @@ if (any(installed_packages == FALSE)) {
 invisible(lapply(packages, library, character.only = TRUE))
 ```
 
-
 First, the blood pressure data are loaded and preprocessed:
 
 ```{r load_and_preprocess_data}
+# The ghana blood pressure data set is used
+# Loading of the data set
 data(bp_ghana)
 
+# Data preprocessing
 bp_ghana %>%
-  filter(!is.na(SBP) & !is.na(DBP)) %>% # remove all rows with NA value od the blood pressure
+  filter(!is.na(SBP) & !is.na(DBP)) %>% # remove all rows with NA value of the blood pressure
   group_by(ID) %>%
   mutate(n = n()) %>%
   filter(n == 3) %>% # remove all patients with incomplete bp measurements
@@ -41,6 +43,7 @@ bp_ghana %>%
 # show the head of the table
 head(bp_data)
 
+# create tibble with baseline bp data
 bp_ghana %>%
   filter(Time_Elapsed == "Baseline") %>% # filter the baseline data
   filter(!is.na(SBP) & !is.na(DBP)) -> bp_baseline_data # remove all rows with NA value od the blood pressure
@@ -57,7 +60,7 @@ In a first graphical presentation I  present the blood pressure data  of the fir
 #| fig-width: 8
 #| fig-cap: Systolic and Diastolic blood pressure at three time points.
 #| 
-# prepare data table for boxplot
+# prepare data tibble for boxplot
 bp_data %>%
   select(ID, Time_Elapsed, SBP, DBP) %>%
   mutate(
@@ -76,6 +79,8 @@ bp_data %>%
     )
   ) -> bp_data_for_boxplot
 
+
+# Plot of the data
 bp_data_for_boxplot %>%
   ggplot(aes(x = as.factor(time), y = value, fill = SBP_or_DBP)) +
   geom_point(
@@ -111,12 +116,15 @@ bp_data_for_boxplot %>%
 
 This boxplot visualization shows the distribution of both systolic and diastolic blood pressure measurements across the three time points. The jittered points show individual measurements, while the diamonds indicate the mean values for each group. What can we learn from this graphics?
 
--  The blood pressure at baseline is to high. 
+-  For most of the patients, the blood pressure at baseline is to high. 
 -  The treatment is lowering the blood pressure (both values) for  a large group of the patients. However, we cannot quantify the size of that group.
 -  The diastoloc blood pressure is lower than the systolic blood pressure (as it has to be). 
 
-There should be more information in this data set.
-In a second step, we will vizualize the baseline of the BP measurements:  
+
+This presentation is formally correct but provides a very coarse overview. 
+For instance, it is invisible how systolic and diastolic blood pressure depend on each other.
+There should  more appropriate presentations for this data set.
+In a second step, we will vizualize the baseline of the BP measurements, as done by statisticians:  
 ```{r scatterplot_and_histograms}
 #| fig-align: center
 #| fig-width: 8
@@ -136,7 +144,7 @@ sbp_breaks <- seq(
   by = 5
 )
 
-# count the blood pressure data into the bins
+# Count the blood pressure data into the bins
 dbp_counts <- bp_baseline_data %>%
   mutate(bin = cut(DBP, breaks = dbp_breaks, right = FALSE)) %>%
   filter(!is.na(bin)) %>%
@@ -166,10 +174,12 @@ cor_label <- sprintf(
 )
 
 
-# plot the data
+# Plot the data
 bp_baseline_data %>%
   ggplot(aes(x = DBP, y = SBP)) +
+
   geom_point(size = 2, alpha = 0.3) +
+
   geom_smooth(
     method = "lm",
     formula = y ~ x,
@@ -252,7 +262,8 @@ bp_baseline_data %>%
     ggside.axis.ticks.y = element_blank()
   )
 ```
-This representation of the blood pressure data may be particularly useful in a statistics course. It illustrates, for example, that the correlation between systolic and diastolic blood pressure is relatively weak. In a randomly selected population, this correlation would likely be stronger, whereas the present dataset consists exclusively of patients with hypertension.
+
+This representation of the blood pressure data is particularly useful in a statistics course. It illustrates, for example, that the correlation between systolic and diastolic blood pressure is relatively weak. In a randomly selected population, this correlation would likely be stronger, whereas the present dataset consists exclusively of patients with hypertension.
 
 For healthcare practitioners or nurses, however, this visualization is probably too complex. We therefore seek a representation that is more intuitive and accessible to audiences without a statistical background. To this end, we classify the measurements into six blood pressure categories: low, normal, prehypertension, and three stages of hypertension.
 
@@ -260,7 +271,8 @@ For healthcare practitioners or nurses, however, this visualization is probably 
 #| fig-align: center
 #| fig-width: 8
 #| fig-cap: Systolic and Diastolic blood pressure at baseline with blood pressure categories.
-#| 
+#
+# Define 6 categories of baseline blood pressure data
 bp_baseline_data %>%
   select(SBP, DBP) %>%
   mutate(
@@ -274,7 +286,7 @@ bp_baseline_data %>%
     )
   ) -> bp_baseline_plot_data
 
-
+# Dataframe for the plot background
 data_bg <- data.frame(
   xmin = rep(-Inf, 6),
   xmax = rev(c(60, 80, 90, 100, 110, Inf)),
@@ -300,6 +312,7 @@ data_bg <- data.frame(
   )
 )
 
+# Plot the data
 bp_baseline_data %>%
   ggplot(aes(x = DBP, y = SBP)) +
   geom_rect(
@@ -350,6 +363,9 @@ This chart has two main strengths:
 However, this representation is less suitable for assessing the effectiveness of medical interventions, since the number or proportion of patients within each category is difficult to judge visually. We therefore turn to stacked bar charts that summarize the distribution of patients across the blood pressure categories. This requires an elementary data analysis step, namely assigning each blood pressure measurement to a category.
 
 ```{r stacked_bar_plot_and_categories}
+# Define 6 categories for the blood pressure data
+# (now for baseline AND follow up measurements)
+
 bp_data %>%
   select(c(Time_Elapsed, SBP, DBP)) %>%
   mutate(
@@ -375,7 +391,10 @@ bp_data %>%
       )
     )
   ) %>%
+  # get rid of columns not needed any more
   select(-c(SBP, DBP)) %>%
+  # compute the data frame for the stacked bar plot
+  # i.e., the percentages of the blood pressure categories per time point
   group_by(Time_Elapsed, BP_level) %>%
   summarize(group_size = n(), .groups = "drop_last") %>%
   group_by(Time_Elapsed) %>%
@@ -383,6 +402,7 @@ bp_data %>%
   ungroup() %>%
   mutate(group_size_perc = 100 * group_size / no_of_patients) %>%
   select(-c(group_size, no_of_patients)) %>%
+  # compute the position of the label
   mutate(
     group_size_perc_plus_minus = case_when(
       BP_level %in%
@@ -433,6 +453,7 @@ bp_data %>%
   ) -> tibble_for_stacked_barplot
 
 
+# Plot the data
 tibble_for_stacked_barplot %>%
   mutate(
     Time_Elapsed = factor(
@@ -491,4 +512,4 @@ tibble_for_stacked_barplot %>%
   )
 ```
 
-This representation of the dataset provides a clear and easily understandable summary of the blood pressure measurements at baseline and of the effects of the medical intervention. After treatment, approximately half of the patients exhibit normal blood pressure. There is just little improvement between the second and third measurement.  The proportion of patients with stage 3 hypertension remains nearly unchanged.
+This representation of the dataset provides a clear and easily understandable summary of the blood pressure measurements at baseline and of the effects of the medical intervention. After treatment, approximately half of the patients exhibit normal blood pressure. There is just little improvement between the second and third measurement.  The proportion of patients with stage 3 hypertension remains nearly unchanged. The information about the blood pressure of a specific patient, however, is not given.

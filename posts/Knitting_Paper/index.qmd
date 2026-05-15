@@ -187,6 +187,7 @@ output_cm %>%
     ),
     caption = "Enjoy Knitting!\n Origami Data Science Services\n"
   ) +
+
   theme(
     title = element_text(size = 18, face = 'bold'),
 

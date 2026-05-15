@@ -27,8 +27,10 @@ library(FibFreq)
 #| fig-align: center
 #| fig-width: 8
 #| fig-height: 6
-#|
+# chose four ECGs for being plotted
 ecgs_selected <- c(1, 37, 112, 13)
+
+# tibble for representation of chosen ECGs
 minitib <- function(no, i) {
   tibble(
     no = rep(no, 1000),
@@ -37,9 +39,9 @@ minitib <- function(no, i) {
     orig_no = rep(i, 1000)
   )
 }
-
 data_fig_ecgs <- map2_dfr(1:length(ecgs_selected), ecgs_selected, minitib)
 
+# tibble for labeling the ECGs
 data_fig_ecgs_text <- data.frame(
   no = c(1, 2, 3, 4),
   label = paste("ECG No.", ecgs_selected)
@@ -51,6 +53,7 @@ data_fig_ecgs_y_scales <- data.frame(
   ecg = c(-0.1, 0.2, -0.03, 0.03, -0.03, 0.03, -0.01, 0.02)
 )
 
+# plot the data
 data_fig_ecgs |>
   ggplot(aes(x = time, y = ecg)) +
   geom_line(col = "darkblue", linewidth = 0.5) +
